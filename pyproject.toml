@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pycompile"
+version = "0.1.0"
+description = "A python compiler CLI tool"
+authors = ["iplitharas <johnplitharas@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+black = "^23.1.0"
+pylint = "^2.16.2"
+isort = "^5.12.0"
+pytest-cov = "^4.0.0"
+pre-commit = "^3.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
