@@ -85,6 +85,6 @@ if __name__ == "__main__":
         # additional_exclude_patterns=["**/something_else/*.py", "**/yolo2/*.py"],
     )
     input_files = file_handler.parse_files()
-    compiler_handler = CompilerHandler(files=input_files, compiler=NuitkaCompiler())
+    compiler_handler = CompilerHandler(files=input_files, compiler=CythonCompiler())
     compiler_handler.start_compiling()
     compiler_handler.clean_executables()
