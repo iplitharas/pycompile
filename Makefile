@@ -12,7 +12,7 @@ install-hooks: ## Install hooks
 	pre-commit install
 
 test: ## Run locally pytest with coverage
-	pytest -vv -p no:warnings --cov=. src
+	pytest -vv -p no:warnings --cov=. ./tests
 	echo "🚀🚀"
 
 check: ## Run isort black and pylint in all files

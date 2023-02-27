@@ -5,14 +5,7 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-from src import (
-    Compiler,
-    CythonCompiler,
-    NuitkaCompiler,
-    FileHandler,
-    change_dir,
-    run_sub_process,
-)
+from src import Compiler, change_dir, run_sub_process
 
 
 class CompilerHandler:
@@ -26,12 +19,12 @@ class CompilerHandler:
         files: dict[str : list[Path]],
         compiler: Compiler,
         clean_source: bool = False,
-        clean_builds: bool = True,
+        keep_builds: bool = True,
     ):
         self.files = files
         self.compiler = compiler
         self.clean_source = clean_source
-        self.clean_builds = clean_builds
+        self.keep_builds = keep_builds
 
     def clean_executables(self) -> None:
         """
@@ -71,20 +64,7 @@ class CompilerHandler:
         """
         Cleans the temporary `build` files.
         """
-        if self.clean_builds:
+        if not self.keep_builds:
             for file in files:
                 with change_dir(file.parent):
                     self.compiler.cleanup(file_path=file)
-
-
-if __name__ == "__main__":
-    file_handler = FileHandler(
-        Path(
-            "../demo/",
-        )
-        # additional_exclude_patterns=["**/something_else/*.py", "**/yolo2/*.py"],
-    )
-    input_files = file_handler.parse_files()
-    compiler_handler = CompilerHandler(files=input_files, compiler=CythonCompiler())
-    compiler_handler.start_compiling()
-    compiler_handler.clean_executables()

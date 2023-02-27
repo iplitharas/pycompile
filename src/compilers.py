@@ -76,8 +76,7 @@ class NuitkaCompiler(Compiler):
 
     def cleanup(self, file_path: Path):
         """
-        Deletes the `build`directory alongside with the `file.pyi` temp
-        file.
+        Deletes the `build`directory alongside with the `file.pyi` temp file.
         """
         build_path = file_path.with_suffix(".build")
         if build_path.exists():

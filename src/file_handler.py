@@ -6,9 +6,9 @@ Note:
                  `*` :   On Unix, will match everything except slashes.
                          On Windows, it will avoid matching backslashes as well as slashes.
 """
+from collections import defaultdict
 from pathlib import Path
 from typing import Generator
-from collections import defaultdict
 
 
 class FileHandler:

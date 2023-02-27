@@ -3,10 +3,10 @@ implementations for
 `change_dir` context manager
 and `run_sub_process` helper function.
 """
+import os
 import subprocess
 from contextlib import contextmanager
 from pathlib import Path
-import os
 
 
 @contextmanager
