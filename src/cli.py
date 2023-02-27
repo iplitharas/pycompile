@@ -65,24 +65,37 @@ def main(
     clean_executables,
 ):
     """Start compilation of the files"""
+    handle_user_in(
+        input_path,
+        exclude_glob_paths,
+        verbose,
+        engine,
+        clean_source,
+        keep_builds,
+        clean_executables,
+    )
 
-    file_handler = FileHandler(
+
+def handle_user_in(
+    input_path: Path,
+    exclude_glob_paths: list[str],
+    verbose: int,
+    engine: str,
+    clean_source: bool,
+    keep_builds: bool,
+    clean_executables: bool,
+) -> None:
+    """
+    Helper function for handling the user input.
+    """
+    dir_files = FileHandler(
         input_path=input_path,
         additional_exclude_patterns=exclude_glob_paths,
         verbose=True if verbose > 0 else False,
-    )
-    dir_files = file_handler.parse_files()
+    ).parse_files()
 
-    for directory, files in dir_files.items():
-        directory_str = (
-            str(Path(directory).parent) + "/" + str(Path(directory).name)
-        )
-        click.echo(
-            "🗂️  "
-            + click.style(
-                text=directory_str + f" with #{len(files)} files", fg="cyan"
-            ),
-        )
+    format_files(dir_files)
+
     if dir_files:
         compiler = (
             CythonCompiler() if engine.lower() == "cython" else NuitkaCompiler()
@@ -98,5 +111,17 @@ def main(
             compiler_handler.clean_executables()
 
 
-# if __name__ == "__main__":
-#     main()
+def format_files(dir_files: dict) -> None:
+    """
+    Formats to `stdout` the input directories/files
+    """
+    for directory, files in dir_files.items():
+        directory_str = (
+            str(Path(directory).parent) + "/" + str(Path(directory).name)
+        )
+        click.echo(
+            "🗂️  "
+            + click.style(
+                text=directory_str + f" with #{len(files)} files", fg="cyan"
+            ),
+        )
