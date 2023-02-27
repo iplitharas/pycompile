@@ -5,7 +5,8 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-from src import Compiler, change_dir, run_sub_process
+from src.compilers import Compiler
+from src.helpers import change_dir, run_sub_process
 
 
 class CompilerHandler:

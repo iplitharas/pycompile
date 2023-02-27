@@ -128,4 +128,3 @@ class FileHandler:
             f"additional_exclude_patterns={self.exclude_patterns},"
             f"verbose={self.verbose})"
         )
-

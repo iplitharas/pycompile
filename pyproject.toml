@@ -5,6 +5,9 @@ description = "A python compiler CLI tool"
 authors = ["iplitharas <johnplitharas@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+packages = [
+    { include = "src" }
+]
 
 [tool.poetry.dependencies]
 python = ">3.8"
@@ -24,5 +27,18 @@ pre-commit = "^3.1.0"
 ipython = "^8.10.0"
 
 [build-system]
-requires = ["poetry-core"]
+requires = [ "setuptools", "wheel"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+pycompile = "src.cli:main"
+
+
+[tool.black]
+line-length = 80
+target-version = ["py38", "py39"]
+
+[tool.isort]
+multi_line_output = 3
+profile = "black"
+skip = [".gitignore", ".dockerignore" ,".env"]

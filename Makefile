@@ -8,6 +8,9 @@ create-env: ## Create python virtual env
 poetry-install: create-env ## Create and install environment for local dev
 	  source .env/bin/activate && poetry install
 
+package-install: ## Build and install the package
+	poetry build && poetry install
+
 install-hooks: ## Install hooks
 	pre-commit install
 
@@ -20,7 +23,7 @@ check: ## Run isort black and pylint in all files
 	black src
 	pylint --recursive=y src
 
-.PHONY: help create-env poetry-install install-hooks check test
+.PHONY: help create-env poetry-install install-hooks check test package-install
 
 help:
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)

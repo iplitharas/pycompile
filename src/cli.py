@@ -1,9 +1,8 @@
-import sys
 from pathlib import Path
 
-sys.path.append("/Users/iplitharas/projects/pycompile/")
-from src import FileHandler, CompilerHandler, CythonCompiler, NuitkaCompiler
 import click
+
+from src import CompilerHandler, CythonCompiler, FileHandler, NuitkaCompiler
 
 
 @click.command()
@@ -75,13 +74,19 @@ def main(
     dir_files = file_handler.parse_files()
 
     for directory, files in dir_files.items():
-        directory_str = str(Path(directory).parent) + "/" + str(Path(directory).name)
+        directory_str = (
+            str(Path(directory).parent) + "/" + str(Path(directory).name)
+        )
         click.echo(
             "🗂️  "
-            + click.style(text=directory_str + f" with #{len(files)} files", fg="cyan"),
+            + click.style(
+                text=directory_str + f" with #{len(files)} files", fg="cyan"
+            ),
         )
     if dir_files:
-        compiler = CythonCompiler() if engine.lower() == "cython" else NuitkaCompiler()
+        compiler = (
+            CythonCompiler() if engine.lower() == "cython" else NuitkaCompiler()
+        )
         compiler_handler = CompilerHandler(
             files=dir_files,
             compiler=compiler,
@@ -93,5 +98,5 @@ def main(
             compiler_handler.clean_executables()
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

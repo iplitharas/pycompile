@@ -14,7 +14,9 @@ class Compiler(ABC):
 
     @cmd.setter
     def cmd(self, new_cmd: str):
-        raise NotImplementedError("Each compiler should be able to set the command!")
+        raise NotImplementedError(
+            "Each compiler should be able to set the command!"
+        )
 
     @abstractmethod
     def cleanup(self, file_path: Path):
