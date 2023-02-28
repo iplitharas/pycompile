@@ -1,5 +1,5 @@
 # pycompile
-A `CLI` tool for compiling python source code
+
 ```python
 """                                        _ _
     _ __  _   _  ___ ___  _ __ ___  _ __ (_) | ___
@@ -10,3 +10,4 @@ A `CLI` tool for compiling python source code
    
 """
 ```
+A `CLI` tool for compiling python source code.

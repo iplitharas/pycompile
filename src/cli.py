@@ -1,11 +1,20 @@
 """
-CLI ENTRYPOINT
+CLI entrypoint
 """
+import logging
 from pathlib import Path
 
 import click
 
-from src import CompilerHandler, CythonCompiler, FileHandler, NuitkaCompiler
+from src import (
+    CompilerHandler,
+    CythonCompiler,
+    FileHandler,
+    NuitkaCompiler,
+    setup_logging,
+)
+
+logger = logging.getLogger(__name__)
 
 
 @click.command()
@@ -75,7 +84,7 @@ def main(
    | .__/ \__, |\___\___/|_| |_| |_| .__/|_|_|\___|
    |_|    |___/                    |_|
    """
-    handle_user_in(
+    handle_user_input(
         input_path,
         exclude_glob_paths,
         verbose,
@@ -86,7 +95,7 @@ def main(
     )
 
 
-def handle_user_in(
+def handle_user_input(
     input_path: Path,
     exclude_glob_paths: list[str],
     verbose: int,
@@ -98,10 +107,10 @@ def handle_user_in(
     """
     Helper function for handling the user input.
     """
+    setup_logging(verbose)
     dir_files = FileHandler(
         input_path=input_path,
         additional_exclude_patterns=exclude_glob_paths,
-        verbose=True if verbose > 0 else False,
     ).parse_files()
 
     format_files(dir_files)

@@ -6,9 +6,14 @@ Note:
                  `*` :   On Unix, will match everything except slashes.
                          On Windows, it will avoid matching backslashes as well as slashes.
 """
+import logging
 from collections import defaultdict
 from pathlib import Path
 from typing import Generator
+
+from src.helpers import Colors
+
+logger = logging.getLogger(__name__)
 
 
 class FileHandler:
@@ -22,16 +27,13 @@ class FileHandler:
         self,
         input_path: Path | str,
         additional_exclude_patterns: list[str] = None,
-        verbose: bool = False,
     ):
         """
         By default, all the `test` files and any `__init__` files are excluded
         :param `input_path`: Should be a valid file/directory path.
         :param `additional_exclude_patterns`: Any optional additional glob patterns.
-        :param verbose: False by default
         """
         self.input_path = input_path
-        self.verbose = verbose
         self.exclude_patterns = additional_exclude_patterns
 
     @property
@@ -73,16 +75,19 @@ class FileHandler:
 
         files = defaultdict(list[Path])
         excluded_files = list(self._filter_files())
-        if self.verbose:
-            print(
-                f"Excluded files: "
-                f"{[excluded_file.name for excluded_file in excluded_files if excluded_file]}"
-            )
+        logger.debug(
+            f"{Colors.CYAN}Excluded files: "
+            f"{[excluded_file.name for excluded_file in excluded_files if excluded_file]}"
+            f"{Colors.RESET}"
+        )
 
         for file in self._collect_files():
             if file not in excluded_files:
                 files[str(file.resolve().parent)].append(file.resolve())
 
+        logger.debug(
+            f"{Colors.CYAN}Files for compilation: {files} {Colors.RESET}"
+        )
         return files
 
     def _filter_files(self) -> Generator[Path, None, None]:
@@ -92,7 +97,6 @@ class FileHandler:
         """
         if not self.input_path.is_dir():
             yield None
-
         yield from (
             file
             for file in self._collect_files()
@@ -119,12 +123,10 @@ class FileHandler:
             f"FileHandler\n"
             f"Input path: {self.input_path}\n"
             f"Exclude glob patters: {self.exclude_patterns}\n"
-            f"verbose: {self.verbose}"
         )
 
     def __repr__(self) -> str:
         return (
             f"FileHandler(input_path={self.input_path},"
             f"additional_exclude_patterns={self.exclude_patterns},"
-            f"verbose={self.verbose})"
         )
