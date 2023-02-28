@@ -1,12 +1,15 @@
 """
 CompilerHandler implementation
 """
+import logging
 from pathlib import Path
 
 from tqdm import tqdm
 
 from src.compilers import Compiler
 from src.helpers import Colors, change_dir, run_sub_process
+
+logger = logging.getLogger(__name__)
 
 
 class CompilerHandler:
@@ -57,7 +60,12 @@ class CompilerHandler:
         Cleans the `source` files.
         """
         if self.clean_source:
-            [file.unlink() for file in files]
+            deleted = [file.unlink() for file in files]
+            logger.warning(
+                f"{Colors.CYAN}Flag `--clean-source` is on, deleted "
+                f"#{len(deleted)} files.."
+                f"{Colors.RESET}"
+            )
 
     def _clean_build_files(self, files: list[Path]) -> None:
         """
@@ -67,3 +75,8 @@ class CompilerHandler:
             for file in files:
                 with change_dir(file.parent):
                     self.compiler.cleanup(file_path=file)
+            else:
+                logger.warning(
+                    f"{Colors.CYAN}Flag `-keep-builds` is off,all temp build files are deleted.."
+                    f"{Colors.RESET}"
+                )
