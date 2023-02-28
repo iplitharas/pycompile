@@ -14,6 +14,8 @@ package-install: ## Build and install the package
 install-hooks: ## Install hooks
 	pre-commit install
 
+setup-local-dev: poetry-install package-install install-hooks ## Setup the local environment
+
 test: ## Run locally pytest with coverage
 	pytest -vv -p no:warnings --cov=. ./tests
 	echo "🚀🚀"
@@ -23,7 +25,7 @@ check: ## Run isort black and pylint in all files
 	black src
 	pylint --recursive=y src
 
-.PHONY: help create-env poetry-install install-hooks check test package-install
+.PHONY: help create-env poetry-install install-hooks check test package-install setup-local-dev
 
 help:
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)

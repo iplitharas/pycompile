@@ -11,3 +11,16 @@
 """
 ```
 A `CLI` tool for compiling python source code.
+
+## Table of contents
+1. [Local-development](#local-development)
+
+### Local-development
+For local development run the following command
+```bash
+make setup-local-dev
+```
+All available `make` commands
+```bash
+make help
+```
