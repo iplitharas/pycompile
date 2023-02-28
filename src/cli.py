@@ -113,9 +113,7 @@ def handle_user_input(
         input_path=input_path,
         additional_exclude_patterns=exclude_glob_paths,
     ).parse_files()
-    logger.debug(
-        f"{Colors.CYAN}Total files for compilation #{len(dir_files.values())}{Colors.RESET}"
-    )
+
     if dir_files:
         compiler = (
             CythonCompiler() if engine.lower() == "cython" else NuitkaCompiler()

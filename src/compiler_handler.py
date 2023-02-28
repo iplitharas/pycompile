@@ -57,9 +57,7 @@ class CompilerHandler:
         Cleans the `source` files.
         """
         if self.clean_source:
-            for file in files:
-                with change_dir(file.parent):
-                    file.unlink()
+            [file.unlink() for file in files]
 
     def _clean_build_files(self, files: list[Path]) -> None:
         """
