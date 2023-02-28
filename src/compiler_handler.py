@@ -6,7 +6,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 from src.compilers import Compiler
-from src.helpers import change_dir, run_sub_process
+from src.helpers import Colors, change_dir, run_sub_process
 
 
 class CompilerHandler:
@@ -43,7 +43,7 @@ class CompilerHandler:
         for directory, dir_files in tqdm(
             self.files.items(),
             ascii=True,
-            desc="Compiling",
+            desc=f"{Colors.CYAN}Compiling{Colors.RESET}",
             dynamic_ncols=True,
         ):
             try:

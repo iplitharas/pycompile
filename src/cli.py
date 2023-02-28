@@ -13,6 +13,7 @@ from src import (
     NuitkaCompiler,
     setup_logging,
 )
+from src.helpers import Colors
 
 logger = logging.getLogger(__name__)
 
@@ -112,9 +113,9 @@ def handle_user_input(
         input_path=input_path,
         additional_exclude_patterns=exclude_glob_paths,
     ).parse_files()
-
-    format_files(dir_files)
-
+    logger.debug(
+        f"{Colors.CYAN}Total files for compilation #{len(dir_files.values())}{Colors.RESET}"
+    )
     if dir_files:
         compiler = (
             CythonCompiler() if engine.lower() == "cython" else NuitkaCompiler()
@@ -128,19 +129,3 @@ def handle_user_input(
         compiler_handler.start_compiling()
         if clean_executables:
             compiler_handler.clean_executables()
-
-
-def format_files(dir_files: dict) -> None:
-    """
-    Formats to `stdout` the input directories/files
-    """
-    for directory, files in dir_files.items():
-        directory_str = (
-            str(Path(directory).parent) + "/" + str(Path(directory).name)
-        )
-        click.echo(
-            "🗂️  "
-            + click.style(
-                text=directory_str + f" with #{len(files)} files", fg="cyan"
-            ),
-        )

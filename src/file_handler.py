@@ -85,9 +85,6 @@ class FileHandler:
             if file not in excluded_files:
                 files[str(file.resolve().parent)].append(file.resolve())
 
-        logger.debug(
-            f"{Colors.CYAN}Files for compilation: {files} {Colors.RESET}"
-        )
         return files
 
     def _filter_files(self) -> Generator[Path, None, None]:
