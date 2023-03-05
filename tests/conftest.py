@@ -17,7 +17,7 @@ def sample_python_file_fixture(tmp_path: Path) -> Path:
     sample_folder.mkdir()
     # Create a sample file within the sample folder
     python_file = sample_folder / "hello.py"
-    content = r"print('I'm a python module')"
+    content = r"print('Im a python module')"
     python_file.write_text(content)
     assert len(list(sample_folder.iterdir())) == 1
     assert python_file.read_text() == content
