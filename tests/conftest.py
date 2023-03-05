@@ -35,6 +35,7 @@ def sample_files_fixture(tmp_path: Path) -> Path:
     # Create a sample file
     txt_file = sample_folder / "1.txt"
     txt_file.touch()
+    txt_file.write_text("some contents here")
     assert len(list(sample_folder.iterdir())) == 1
     return sample_folder
 
