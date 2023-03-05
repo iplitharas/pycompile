@@ -28,20 +28,31 @@ make help
 ```
 
 ## Usage
+
+```bash
+pycompile -i your_python_files --clean-source --engine nuitka 
+```
+
 By default, the [Cython](https://cython.org/) is being used as the default
 compiler. 
-For compiling any `python` files use the following command:
-which by default, deletes any temp build files and keeps the source files.
+
+
+| Syntax                | Description                                                  |
+|-----------------------|--------------------------------------------------------------|
+| `--input-path PATH`   | by default it will exclude any `test` and `__ini__.py` files |
+| `--clean-source`      | Deletes the sources files.                                   |
+| `--keep-builds`       | Keeps the temp build files.                                  |
+| `--clean-executables` | Deletes the shared objects (`.so`) files.                    |
+| `--engine`            | Can be `cython` or `nuitka`.                                 |
+| `-exclude-glob-paths` | Glob file patterns for excluding specific files.             |
+| `--verbose`           | Increase log messages.                                       |
+
+### Compiling the examples
+For compiling the `examples` use the following command:
 ```bash
 pycompile -i examples
 ```
-### Options 
-* `--clean-source`: Deletes the sources files.
-* `--keep-builds`: Keeps the temp build files.
-* `--clean-executables`: Deletes the shared objects (`.so`) files.
-* `-engine`: Can be `cython` or `nuitka`.
-* `-exclude-glob-paths`: Glob file patterns for excluding specific files.
-* `--verbose`: Increase log messages.
+which by default, deletes any temp build files and keeps the source files.
 
 [![asciicast](https://asciinema.org/a/QK5h8zR0oW2CGvfJtrmWZ3es0.svg)](https://asciinema.org/a/QK5h8zR0oW2CGvfJtrmWZ3es0)
 
