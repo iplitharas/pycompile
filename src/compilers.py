@@ -3,7 +3,14 @@ Compilers (`Cython` and `Nuitka`) wrapper implementations.
 """
 import shutil
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 from pathlib import Path
+
+
+@dataclass(frozen=True)
+class CompilerCommands:
+    cython = "cythonize {} -3 --inplace"
+    nuitka = "python -m nuitka --module {}"
 
 
 class Compiler(ABC):
@@ -32,7 +39,7 @@ class CythonCompiler(Compiler):
     https://cython.org/
     """
 
-    def __init__(self, cmd: str = "cythonize {} -3 --inplace"):
+    def __init__(self, cmd: str = CompilerCommands.cython):
         self.cmd = cmd
 
     @property
@@ -56,6 +63,12 @@ class CythonCompiler(Compiler):
         c_extension = file_path.with_suffix(".c")
         c_extension.unlink(missing_ok=True)
 
+    def __str__(self) -> str:
+        return self.__repr__()
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.cmd})"
+
 
 class NuitkaCompiler(Compiler):
     """
@@ -65,7 +78,7 @@ class NuitkaCompiler(Compiler):
     https://nuitka.net/
     """
 
-    def __init__(self, cmd: str = "python -m nuitka --module {}"):
+    def __init__(self, cmd: str = CompilerCommands.nuitka):
         self.cmd = cmd
 
     @property
@@ -85,3 +98,9 @@ class NuitkaCompiler(Compiler):
             shutil.rmtree(build_path)
         pyi_extension = file_path.with_suffix(".pyi")
         pyi_extension.unlink(missing_ok=True)
+
+    def __str__(self) -> str:
+        return self.__repr__()
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.cmd})"

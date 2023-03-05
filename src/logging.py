@@ -8,6 +8,7 @@ def setup_logging(verbose: int) -> None:
         level = "INFO"
     else:
         level = "WARN"
+
     LOGGING_CONFIG = {
         "version": 1,
         "disable_existing_loggers": True,

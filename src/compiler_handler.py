@@ -1,5 +1,5 @@
 """
-CompilerHandler implementation
+`CompilerHandler` implementation
 """
 import logging
 from pathlib import Path
