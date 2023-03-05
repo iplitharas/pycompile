@@ -67,9 +67,11 @@ class CompilerHandler:
         """
         deleted = [file.unlink() for file in files]
         logger.warning(
-            f"{Colors.CYAN}Flag `--clean-source` is on, deleted "
+            "%sFlag `--clean-source` is on, deleted "
             f"#{len(deleted)} files.."
-            f"{Colors.RESET}"
+            "%s",
+            Colors.CYAN,
+            Colors.RESET,
         )
 
     def _clean_build_files(self, files: list[Path]) -> None:
@@ -78,8 +80,9 @@ class CompilerHandler:
         """
         for file in files:
             self.compiler.cleanup(file_path=file)
-        else:
-            logger.warning(
-                f"{Colors.CYAN}Flag `-keep-builds` is off, all temp build files are deleted.."
-                f"{Colors.RESET}"
-            )
+        logger.warning(
+            "%s Flag `-keep-builds` is off, all temp build files are deleted.."
+            "%s",
+            Colors.CYAN,
+            Colors.RESET,
+        )

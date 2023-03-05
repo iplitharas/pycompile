@@ -13,7 +13,6 @@ from src import (
     NuitkaCompiler,
     setup_logging,
 )
-from src.helpers import Colors
 
 logger = logging.getLogger(__name__)
 
@@ -68,7 +67,7 @@ logger = logging.getLogger(__name__)
     default=False,
     help="Clean final executables (.so) files",
 )
-def main(
+def main(  # pylint: disable=too-many-arguments
     input_path,
     exclude_glob_paths,
     verbose,
@@ -96,7 +95,7 @@ def main(
     )
 
 
-def handle_user_input(
+def handle_user_input(  # pylint: disable=too-many-arguments
     input_path: Path,
     exclude_glob_paths: list[str],
     verbose: int,

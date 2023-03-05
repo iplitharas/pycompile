@@ -76,9 +76,14 @@ class FileHandler:
         files = defaultdict(list[Path])
         excluded_files = list(self._filter_files())
         logger.debug(
-            f"{Colors.CYAN}Excluded files: "
-            f"{[excluded_file.name for excluded_file in excluded_files if excluded_file]}"
-            f"{Colors.RESET}"
+            "%sExcluded files: %s%s",
+            Colors.CYAN,
+            Colors.RESET,
+            [
+                excluded_file.name
+                for excluded_file in excluded_files
+                if excluded_file
+            ],
         )
 
         for file in self._collect_files():

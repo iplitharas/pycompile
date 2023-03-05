@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 @dataclass(frozen=True)
-class Colors:
+class Colors:  # pylint: disable=missing-class-docstring
     HEADER = "\033[95m"
     BLUE = "\033[94m"
     CYAN = "\033[96m"
@@ -43,4 +43,4 @@ def run_sub_process(files: list[Path], compile_cmd: str) -> None:
     """
     for file in files:
         cmd_str = compile_cmd.format(file.absolute())
-        subprocess.run(cmd_str, shell=True)
+        subprocess.run(cmd_str, shell=True, check=False)

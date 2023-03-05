@@ -8,25 +8,27 @@ from pathlib import Path
 
 
 @dataclass(frozen=True)
-class CompilerCommands:
+class CompilerCommands:  # pylint: disable=missing-class-docstring
     cython = "cythonize {} -3 --inplace"
     nuitka = "python -m nuitka --module {}"
 
 
-class Compiler(ABC):
+class Compiler(ABC):  # pylint: disable=missing-class-docstring
     @property
     @abstractmethod
-    def cmd(self):
+    def cmd(self):  # pylint: disable=missing-function-docstring
         raise NotImplementedError("Each compiler should have a command!")
 
     @cmd.setter
-    def cmd(self, new_cmd: str):
+    def cmd(self, new_cmd: str):  # pylint: disable=missing-function-docstring
         raise NotImplementedError(
             "Each compiler should be able to set the command!"
         )
 
     @abstractmethod
-    def cleanup(self, file_path: Path):
+    def cleanup(
+        self, file_path: Path
+    ):  # pylint: disable=missing-function-docstring
         raise NotImplementedError("Each compiler should clean it's mess!")
 
 
@@ -73,7 +75,8 @@ class CythonCompiler(Compiler):
 class NuitkaCompiler(Compiler):
     """
     Nuitka is a source-to-source compiler which compiles Python code to C source code,
-    applying some compile-time optimizations in the process such as constant folding and propagation,
+    applying some compile-time optimizations in the process such as constant
+    folding and propagation,
     built-in call prediction, type inference, and conditional statement execution.
     https://nuitka.net/
     """

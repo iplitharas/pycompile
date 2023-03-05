@@ -1,7 +1,11 @@
+"""
+logging setup
+"""
 import logging.config
 
 
 def setup_logging(verbose: int) -> None:
+    """setup logging helper function"""
     if verbose >= 3:
         level = "DEBUG"
     elif verbose == 2:
@@ -9,7 +13,7 @@ def setup_logging(verbose: int) -> None:
     else:
         level = "WARN"
 
-    LOGGING_CONFIG = {
+    logging_config = {
         "version": 1,
         "disable_existing_loggers": True,
         "formatters": {
@@ -43,4 +47,4 @@ def setup_logging(verbose: int) -> None:
             },
         },
     }
-    logging.config.dictConfig(LOGGING_CONFIG)
+    logging.config.dictConfig(logging_config)
