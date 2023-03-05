@@ -1,5 +1,6 @@
 """
 Integration test cases for `CompilerHandler`
+using `Cython` and `Nuitka`.
 """
 
 import logging

@@ -13,7 +13,9 @@ MODULE = "src.compiler_handler"
 
 
 @patch(MODULE + ".run_sub_process")
-def test_compiler_handler_start_compiling(mocked_run_sub_process):
+def test_compiler_handler_start_compiling(
+    mocked_run_sub_process, sample_python_file_fixture
+):
     """
     Given a `CompilerHandler` instance.
     When we call the `start_compiling` method
@@ -21,7 +23,8 @@ def test_compiler_handler_start_compiling(mocked_run_sub_process):
     """
     # Given
     dir_files = dict()
-    dir_files["fake_path"] = ["fake_file"]
+    sample_folder = sample_python_file_fixture
+    dir_files[sample_folder] = ["fake_file"]
     fake_compiler = FakeCompiler()
     compiler_handler = CompilerHandler(
         files=dir_files,
@@ -33,12 +36,14 @@ def test_compiler_handler_start_compiling(mocked_run_sub_process):
     compiler_handler.start_compiling()
     # Then
     mocked_run_sub_process.assert_called_with(
-        files=dir_files["fake_path"], compile_cmd=fake_compiler.cmd
+        files=dir_files[sample_folder], compile_cmd=fake_compiler.cmd
     )
 
 
 @patch(MODULE + ".run_sub_process")
-def test_start_compiling_calls_clean_build_files(mocked_run_sub_process):
+def test_start_compiling_calls_clean_build_files(
+    mocked_run_sub_process, sample_python_file_fixture
+):
     """
     Given a `CompilerHandler` instance with `keep_builds=False`,
      When we call the `start_compiling` method
@@ -46,7 +51,8 @@ def test_start_compiling_calls_clean_build_files(mocked_run_sub_process):
     """
     # Given
     dir_files = dict()
-    dir_files["fake_path"] = ["fake_file"]
+    sample_folder = sample_python_file_fixture
+    dir_files[sample_folder] = ["fake_file"]
     fake_compiler = FakeCompiler()
     compiler_handler = CompilerHandler(
         files=dir_files,
@@ -59,15 +65,17 @@ def test_start_compiling_calls_clean_build_files(mocked_run_sub_process):
     compiler_handler.start_compiling()
     # Then
     mocked_run_sub_process.assert_called_with(
-        files=dir_files["fake_path"], compile_cmd=fake_compiler.cmd
+        files=dir_files[sample_folder], compile_cmd=fake_compiler.cmd
     )
     compiler_handler._clean_build_files.assert_called_once_with(
-        files=dir_files["fake_path"]
+        files=dir_files[sample_folder]
     )
 
 
 @patch(MODULE + ".run_sub_process")
-def test_start_compiling_skips_clean_build_files(mocked_run_sub_process):
+def test_start_compiling_skips_clean_build_files(
+    mocked_run_sub_process, sample_python_file_fixture
+):
     """
     Given a `CompilerHandler` instance with `keep_builds=True`,
     When we call the `start_compiling` method
@@ -75,7 +83,8 @@ def test_start_compiling_skips_clean_build_files(mocked_run_sub_process):
     """
     # Given
     dir_files = dict()
-    dir_files["fake_path"] = ["fake_file"]
+    sample_folder = sample_python_file_fixture
+    dir_files[sample_folder] = ["fake_file"]
     fake_compiler = FakeCompiler()
     compiler_handler = CompilerHandler(
         files=dir_files,
@@ -88,14 +97,14 @@ def test_start_compiling_skips_clean_build_files(mocked_run_sub_process):
     compiler_handler.start_compiling()
     # Then
     mocked_run_sub_process.assert_called_with(
-        files=dir_files["fake_path"], compile_cmd=fake_compiler.cmd
+        files=dir_files[sample_folder], compile_cmd=fake_compiler.cmd
     )
     compiler_handler._clean_build_files.assert_not_called()
 
 
 @patch(MODULE + ".run_sub_process")
 def test_start_compiling_handler_skips_clean_source_files(
-    mocked_run_sub_process,
+    mocked_run_sub_process, sample_python_file_fixture
 ):
     """
     Given a `CompilerHandler` instance with `clean_source=False`,
@@ -104,7 +113,8 @@ def test_start_compiling_handler_skips_clean_source_files(
     """
     # Given
     dir_files = dict()
-    dir_files["fake_path"] = ["fake_file"]
+    sample_folder = sample_python_file_fixture
+    dir_files[sample_folder] = ["fake_file"]
     fake_compiler = FakeCompiler()
     compiler_handler = CompilerHandler(
         files=dir_files,
@@ -117,14 +127,14 @@ def test_start_compiling_handler_skips_clean_source_files(
     compiler_handler.start_compiling()
     # Then
     mocked_run_sub_process.assert_called_with(
-        files=dir_files["fake_path"], compile_cmd=fake_compiler.cmd
+        files=dir_files[sample_folder], compile_cmd=fake_compiler.cmd
     )
     compiler_handler._clean_source_files.assert_not_called()
 
 
 @patch(MODULE + ".run_sub_process")
 def test_start_compiling_handler_calls_clean_source_files(
-    mocked_run_sub_process,
+    mocked_run_sub_process, sample_python_file_fixture
 ):
     """
     Given a `CompilerHandler` instance with `clean_source=True`,
@@ -133,7 +143,8 @@ def test_start_compiling_handler_calls_clean_source_files(
     """
     # Given
     dir_files = dict()
-    dir_files["fake_path"] = ["fake_file"]
+    sample_folder = sample_python_file_fixture
+    dir_files[sample_folder] = ["fake_file"]
     fake_compiler = FakeCompiler()
     compiler_handler = CompilerHandler(
         files=dir_files,
@@ -146,10 +157,10 @@ def test_start_compiling_handler_calls_clean_source_files(
     compiler_handler.start_compiling()
     # Then
     mocked_run_sub_process.assert_called_with(
-        files=dir_files["fake_path"], compile_cmd=fake_compiler.cmd
+        files=dir_files[sample_folder], compile_cmd=fake_compiler.cmd
     )
     compiler_handler._clean_source_files.assert_called_with(
-        files=dir_files["fake_path"]
+        files=dir_files[sample_folder]
     )
 
 

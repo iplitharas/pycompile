@@ -49,13 +49,16 @@ class CompilerHandler:
             desc=f"{Colors.CYAN}Compiling{Colors.RESET}",
             dynamic_ncols=True,
         ):
-            try:
-                run_sub_process(files=dir_files, compile_cmd=self.compiler.cmd)
-            finally:
-                if not self.keep_builds:
-                    self._clean_build_files(files=dir_files)
-                if self.clean_source:
-                    self._clean_source_files(files=dir_files)
+            with change_dir(directory):
+                try:
+                    run_sub_process(
+                        files=dir_files, compile_cmd=self.compiler.cmd
+                    )
+                finally:
+                    if not self.keep_builds:
+                        self._clean_build_files(files=dir_files)
+                    if self.clean_source:
+                        self._clean_source_files(files=dir_files)
 
     @staticmethod
     def _clean_source_files(files: list[Path]) -> None:
@@ -74,8 +77,7 @@ class CompilerHandler:
         Cleans the temporary `build` files.
         """
         for file in files:
-            with change_dir(file.parent):
-                self.compiler.cleanup(file_path=file)
+            self.compiler.cleanup(file_path=file)
         else:
             logger.warning(
                 f"{Colors.CYAN}Flag `-keep-builds` is off, all temp build files are deleted.."

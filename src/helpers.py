@@ -42,6 +42,5 @@ def run_sub_process(files: list[Path], compile_cmd: str) -> None:
     For each file path runs in a subprocess the corresponding compiler command.
     """
     for file in files:
-        with change_dir(file_path=file.parent):
-            cmd_str = compile_cmd.format(file.absolute())
-            subprocess.run(cmd_str, shell=True)
+        cmd_str = compile_cmd.format(file.absolute())
+        subprocess.run(cmd_str, shell=True)
