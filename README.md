@@ -37,15 +37,15 @@ By default, the [Cython](https://cython.org/) is being used as the default
 compiler. 
 
 
-| Syntax                | Description                                                  |
-|-----------------------|--------------------------------------------------------------|
-| `--input-path PATH`   | by default it will exclude any `test` and `__ini__.py` files |
-| `--clean-source`      | Deletes the sources files.                                   |
-| `--keep-builds`       | Keeps the temp build files.                                  |
-| `--clean-executables` | Deletes the shared objects (`.so`) files.                    |
-| `--engine`            | Can be `cython` or `nuitka`.                                 |
-| `-exclude-glob-paths` | Glob file patterns for excluding specific files.             |
-| `--verbose`           | Increase log messages.                                       |
+| Syntax                | Description                                                   |
+|-----------------------|---------------------------------------------------------------|
+| `--input-path PATH`   | by default it will exclude any `test` and `__init__.py` files |
+| `--clean-source`      | Deletes the sources files.                                    |
+| `--keep-builds`       | Keeps the temp build files.                                   |
+| `--clean-executables` | Deletes the shared objects (`.so`) files.                     |
+| `--engine`            | Can be `cython` or `nuitka`.                                  |
+| `-exclude-glob-paths` | Glob file patterns for excluding specific files.              |
+| `--verbose`           | Increase log messages.                                        |
 
 ### Compiling the examples
 For compiling the `examples` use the following command:
