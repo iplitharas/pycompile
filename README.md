@@ -56,3 +56,11 @@ which by default, deletes any temp build files and keeps the source files.
 
 [![asciicast](https://asciinema.org/a/QK5h8zR0oW2CGvfJtrmWZ3es0.svg)](https://asciinema.org/a/QK5h8zR0oW2CGvfJtrmWZ3es0)
 
+
+### Benchmark sample examples
+For running a benchmark on  the `examples` use the following command:
+```bash
+pycompile -b 
+```
+[![asciicast](https://asciinema.org/a/592966.svg)](https://asciinema.org/a/592966)
+
