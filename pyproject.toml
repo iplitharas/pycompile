@@ -15,6 +15,7 @@ click = "^8.1.3"                      # BSD-3-Clause
 tqdm = "^4.64.1"                      # MIT
 cython = "^0.29.33"                   # Apache
 nuitka = "^1.4.8"                     # Apache 2.0
+pytest-benchmark = "^4.0.0"           # BSD-2-Clause
 
 
 [tool.poetry.group.dev.dependencies]
