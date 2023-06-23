@@ -32,10 +32,6 @@ jobs:
         run: |
             poetry install
 
-      - name: Remove example files
-        run: |
-            rm -rf src/examples
-
       - name: Run test cases
         run: |
             make test
