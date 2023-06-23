@@ -6,8 +6,8 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-from src.compilers import Compiler
 from src.helpers import Colors, change_dir, run_sub_process
+from src.wrappers import CompilerWrapper
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ class CompilerHandler:
     def __init__(
         self,
         files: dict[str : list[Path]],
-        compiler: Compiler,
+        compiler: CompilerWrapper,
         clean_source: bool = False,
         keep_builds: bool = True,
     ):
@@ -38,7 +38,7 @@ class CompilerHandler:
             for executable in Path(directory).glob(pattern="*.so"):
                 executable.unlink(missing_ok=True)
 
-    def start_compiling(self) -> None:
+    def start(self) -> None:
         """
         For each `.py` file runs the compiler command
         to build the final executable `.so`

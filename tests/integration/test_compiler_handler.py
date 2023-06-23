@@ -5,7 +5,7 @@ using `Cython` and `Nuitka`.
 
 import logging
 
-from src import CompilerHandler, CythonCompiler, NuitkaCompiler
+from src import CompilerHandler, CythonWrapper, NuitkaWrapper
 
 
 def test_compiler_handler_compiles_using_cython_without_clean_source_and_keep_builds(
@@ -27,11 +27,11 @@ def test_compiler_handler_compiles_using_cython_without_clean_source_and_keep_bu
     # When
     compiler_handler = CompilerHandler(
         files={str(sample_folder): list(sample_folder.iterdir())},
-        compiler=CythonCompiler(),
+        compiler=CythonWrapper(),
         clean_source=False,
         keep_builds=False,
     )
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     assert " Flag `-keep-builds` is off" in caplog.text
     assert len(list(sample_folder.iterdir())) == 2
@@ -61,11 +61,11 @@ def test_compiler_handler_compiles_using_cython_with_keep_builds_and_without_cle
     # When
     compiler_handler = CompilerHandler(
         files={str(sample_folder): list(sample_folder.iterdir())},
-        compiler=CythonCompiler(),
+        compiler=CythonWrapper(),
         clean_source=False,
         keep_builds=True,
     )
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     assert len(list(sample_folder.iterdir())) == 4
     assert " Flag `--clean-source` is on" not in caplog.text
@@ -96,11 +96,11 @@ def test_compiler_handler_compiles_using_cython_with_clean_source_and_without_ke
     # When
     compiler_handler = CompilerHandler(
         files={str(sample_folder): list(sample_folder.iterdir())},
-        compiler=CythonCompiler(),
+        compiler=CythonWrapper(),
         clean_source=True,
         keep_builds=False,
     )
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     assert " Flag `-keep-builds` is off" in caplog.text
     assert len(list(sample_folder.iterdir())) == 1
@@ -131,11 +131,11 @@ def test_compiler_handler_compiles_using_cython_with_keep_builds_and_clean_sourc
     # When
     compiler_handler = CompilerHandler(
         files={str(sample_folder): list(sample_folder.iterdir())},
-        compiler=CythonCompiler(),
+        compiler=CythonWrapper(),
         clean_source=True,
         keep_builds=True,
     )
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     assert len(list(sample_folder.iterdir())) == 3
     assert " Flag `--clean-source` is on" in caplog.text
@@ -166,11 +166,11 @@ def test_compiler_handler_compiles_using_nuitka_with_clean_source_and_without_ke
     # When
     compiler_handler = CompilerHandler(
         files={str(sample_folder): list(sample_folder.iterdir())},
-        compiler=NuitkaCompiler(),
+        compiler=NuitkaWrapper(),
         clean_source=True,
         keep_builds=False,
     )
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     assert " Flag `-keep-builds` is off" in caplog.text
     assert len(list(sample_folder.iterdir())) == 1
@@ -201,11 +201,11 @@ def test_compiler_handler_compiles_using_nuitka_with_keep_builds_and_clean_sourc
     # When
     compiler_handler = CompilerHandler(
         files={str(sample_folder): list(sample_folder.iterdir())},
-        compiler=NuitkaCompiler(),
+        compiler=NuitkaWrapper(),
         clean_source=True,
         keep_builds=True,
     )
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     assert len(list(sample_folder.iterdir())) == 3
     assert " Flag `--clean-source` is on" in caplog.text
@@ -236,11 +236,11 @@ def test_compiler_handler_compiles_using_nuitka_without_clean_source_and_keep_bu
     # When
     compiler_handler = CompilerHandler(
         files={str(sample_folder): list(sample_folder.iterdir())},
-        compiler=NuitkaCompiler(),
+        compiler=NuitkaWrapper(),
         clean_source=False,
         keep_builds=False,
     )
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     assert " Flag `-keep-builds` is off" in caplog.text
     assert len(list(sample_folder.iterdir())) == 2
@@ -270,11 +270,11 @@ def test_compiler_handler_compiles_using_nuitka_with_keep_builds_and_without_cle
     # When
     compiler_handler = CompilerHandler(
         files={str(sample_folder): list(sample_folder.iterdir())},
-        compiler=NuitkaCompiler(),
+        compiler=NuitkaWrapper(),
         clean_source=False,
         keep_builds=True,
     )
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     assert len(list(sample_folder.iterdir())) == 4
     assert " Flag `--clean-source` is on" not in caplog.text

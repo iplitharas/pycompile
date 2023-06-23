@@ -9,9 +9,9 @@ import click
 
 from src import (
     CompilerHandler,
-    CythonCompiler,
+    CythonWrapper,
     FileHandler,
-    NuitkaCompiler,
+    NuitkaWrapper,
     setup_logging,
 )
 from src.benchmark import Benchmark
@@ -43,7 +43,7 @@ logger = logging.getLogger(__name__)
     "-e",
     "--engine",
     default="cython",
-    help="Compiler to be used, defaults to: `cython`",
+    help="CompilerWrapper to be used, defaults to: `cython`",
     type=click.Choice(["cython", "nuitka"], case_sensitive=False),
 )
 @click.option(
@@ -140,7 +140,7 @@ def handle_user_input(  # pylint: disable=too-many-arguments
 
     if dir_files:
         compiler = (
-            CythonCompiler() if engine.lower() == "cython" else NuitkaCompiler()
+            CythonWrapper() if engine.lower() == "cython" else NuitkaWrapper()
         )
         compiler_handler = CompilerHandler(
             files=dir_files,
@@ -148,6 +148,6 @@ def handle_user_input(  # pylint: disable=too-many-arguments
             clean_source=clean_source,
             keep_builds=keep_builds,
         )
-        compiler_handler.start_compiling()
+        compiler_handler.start()
         if clean_executables:
             compiler_handler.clean_executables()

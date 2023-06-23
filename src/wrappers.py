@@ -1,5 +1,5 @@
 """
-Compilers (`Cython` and `Nuitka`) wrapper implementations.
+Wrappers for  `Cython` and `Nuitka` compilers.
 """
 import shutil
 from abc import ABC, abstractmethod
@@ -15,7 +15,7 @@ class CompilerCommands:  # pylint: disable=missing-class-docstring
     nuitka_bench = "python -m nuitka --quiet --module {} 2>/dev/null"
 
 
-class Compiler(ABC):  # pylint: disable=missing-class-docstring
+class CompilerWrapper(ABC):  # pylint: disable=missing-class-docstring
     @property
     @abstractmethod
     def cmd(self):  # pylint: disable=missing-function-docstring
@@ -34,7 +34,7 @@ class Compiler(ABC):  # pylint: disable=missing-class-docstring
         raise NotImplementedError("Each compiler should clean it's mess!")
 
 
-class CythonCompiler(Compiler):
+class CythonWrapper(CompilerWrapper):
     """
     Cython is a programming language, a superset of the Python programming language,
     designed to give C-like performance with code that is written mostly in Python with optional
@@ -68,13 +68,10 @@ class CythonCompiler(Compiler):
         c_extension.unlink(missing_ok=True)
 
     def __str__(self) -> str:
-        return self.__repr__()
-
-    def __repr__(self) -> str:
-        return f"{self.__class__.__name__}"
+        return "Cython"
 
 
-class NuitkaCompiler(Compiler):
+class NuitkaWrapper(CompilerWrapper):
     """
     Nuitka is a source-to-source compiler which compiles Python code to C source code,
     applying some compile-time optimizations in the process such as constant
@@ -105,7 +102,4 @@ class NuitkaCompiler(Compiler):
         pyi_extension.unlink(missing_ok=True)
 
     def __str__(self) -> str:
-        return self.__repr__()
-
-    def __repr__(self) -> str:
-        return f"{self.__class__.__name__}"
+        return "Nuitka"

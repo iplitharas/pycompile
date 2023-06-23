@@ -1,9 +1,9 @@
 """
-Test cases for `CythonCompiler` and `NuitkaCompiler`.
+Test cases for `CythonWrapper` and `NuitkaWrapper`.
 """
 import pytest
 
-from src import Compiler, CompilerCommands, CythonCompiler, NuitkaCompiler
+from src import CompilerCommands, CompilerWrapper, CythonWrapper, NuitkaWrapper
 
 
 def test_cython_compiler_cleanup(sample_cython_build_fixture):
@@ -25,7 +25,7 @@ def test_cython_compiler_cleanup(sample_cython_build_fixture):
     sample_files_path = sample_cython_build_fixture
     assert len(list(sample_files_path.iterdir())) == 4
     # When
-    cython_compiler = CythonCompiler()
+    cython_compiler = CythonWrapper()
     cython_compiler.cleanup(file_path=sample_files_path / "hello.py")
     # Then
     assert len(list(sample_files_path.iterdir())) == 2
@@ -50,13 +50,13 @@ def test_nuitka_compiler_cleanup(sample_nuitka_build_fixture):
     sample_files_path = sample_nuitka_build_fixture
     assert len(list(sample_files_path.iterdir())) == 4
     # When
-    nuitka_compiler = NuitkaCompiler()
+    nuitka_compiler = NuitkaWrapper()
     nuitka_compiler.cleanup(file_path=sample_files_path / "hello.py")
     # Then
     assert len(list(sample_files_path.iterdir())) == 2
 
 
-@pytest.mark.parametrize("testing_compiler", [NuitkaCompiler, CythonCompiler])
+@pytest.mark.parametrize("testing_compiler", [NuitkaWrapper, CythonWrapper])
 def test_compilers_cleanup_with_non_build_files(
     sample_files_fixture, testing_compiler
 ):
@@ -78,8 +78,8 @@ def test_compilers_cleanup_with_non_build_files(
 @pytest.mark.parametrize(
     "testing_compiler,expected_cmd",
     [
-        (NuitkaCompiler, CompilerCommands.nuitka),
-        (CythonCompiler, CompilerCommands.cython),
+        (NuitkaWrapper, CompilerCommands.nuitka),
+        (CythonWrapper, CompilerCommands.cython),
     ],
 )
 def test_compilers_are_instantiated_with_the_right_cmds(
@@ -102,4 +102,4 @@ def test_cannot_instantiate_compiler_without_implement_abstract_methods():
     all the abstract methods.
     """
     with pytest.raises(TypeError):
-        Compiler()
+        CompilerWrapper()

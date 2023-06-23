@@ -1,12 +1,12 @@
 """
-Fake Compiler implementation.
+Fake CompilerWrapper implementation.
 """
 from pathlib import Path
 
-from src import Compiler
+from src import CompilerWrapper
 
 
-class FakeCompiler(Compiler):
+class FakeCompilerWrapper(CompilerWrapper):
     def __init__(self):
         self.cmd = "stat {}"
 

@@ -18,6 +18,7 @@ repos:
         entry: pylint
         language: system
         types: [ python ]
+        files: ^src/
         pass_filenames: true
         exclude: ^src/examples/
         args:

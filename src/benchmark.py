@@ -13,9 +13,9 @@ from pathlib import Path
 import pytest
 
 from src.compiler_handler import CompilerHandler
-from src.compilers import CompilerCommands, CythonCompiler, NuitkaCompiler
 from src.file_handler import FileHandler
 from src.helpers import Colors
+from src.wrappers import CompilerCommands, CythonWrapper, NuitkaWrapper
 
 logger = logging.getLogger(__name__)
 
@@ -30,8 +30,8 @@ class Benchmark:
         self.dir_files = None
         self.examples_path = None
         self.compilers = [
-            CythonCompiler(cmd=CompilerCommands.cython_bench),
-            NuitkaCompiler(cmd=CompilerCommands.nuitka_bench),
+            CythonWrapper(cmd=CompilerCommands.cython_bench),
+            NuitkaWrapper(cmd=CompilerCommands.nuitka_bench),
         ]
 
     def get_examples(self) -> None:
@@ -100,7 +100,7 @@ class Benchmark:
                     clean_source=True,
                     keep_builds=False,
                 )
-                compiler_handler.start_compiling()
+                compiler_handler.start()
                 logger.info(
                     "%s Start benchmarking: `%s` %s",
                     Colors.CYAN,

@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from src import CompilerHandler
-from tests.fakes import FakeCompiler
+from tests.fakes import FakeCompilerWrapper
 
 MODULE = "src.compiler_handler"
 
@@ -25,7 +25,7 @@ def test_compiler_handler_start_compiling(
     dir_files = dict()
     sample_folder = sample_python_file_fixture
     dir_files[sample_folder] = ["fake_file"]
-    fake_compiler = FakeCompiler()
+    fake_compiler = FakeCompilerWrapper()
     compiler_handler = CompilerHandler(
         files=dir_files,
         compiler=fake_compiler,
@@ -33,7 +33,7 @@ def test_compiler_handler_start_compiling(
         keep_builds=True,
     )
     # When
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     mocked_run_sub_process.assert_called_with(
         files=dir_files[sample_folder], compile_cmd=fake_compiler.cmd
@@ -53,7 +53,7 @@ def test_start_compiling_calls_clean_build_files(
     dir_files = dict()
     sample_folder = sample_python_file_fixture
     dir_files[sample_folder] = ["fake_file"]
-    fake_compiler = FakeCompiler()
+    fake_compiler = FakeCompilerWrapper()
     compiler_handler = CompilerHandler(
         files=dir_files,
         compiler=fake_compiler,
@@ -62,7 +62,7 @@ def test_start_compiling_calls_clean_build_files(
     )
     compiler_handler._clean_build_files = MagicMock()
     # When
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     mocked_run_sub_process.assert_called_with(
         files=dir_files[sample_folder], compile_cmd=fake_compiler.cmd
@@ -85,7 +85,7 @@ def test_start_compiling_skips_clean_build_files(
     dir_files = dict()
     sample_folder = sample_python_file_fixture
     dir_files[sample_folder] = ["fake_file"]
-    fake_compiler = FakeCompiler()
+    fake_compiler = FakeCompilerWrapper()
     compiler_handler = CompilerHandler(
         files=dir_files,
         compiler=fake_compiler,
@@ -94,7 +94,7 @@ def test_start_compiling_skips_clean_build_files(
     )
     compiler_handler._clean_build_files = MagicMock()
     # When
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     mocked_run_sub_process.assert_called_with(
         files=dir_files[sample_folder], compile_cmd=fake_compiler.cmd
@@ -115,7 +115,7 @@ def test_start_compiling_handler_skips_clean_source_files(
     dir_files = dict()
     sample_folder = sample_python_file_fixture
     dir_files[sample_folder] = ["fake_file"]
-    fake_compiler = FakeCompiler()
+    fake_compiler = FakeCompilerWrapper()
     compiler_handler = CompilerHandler(
         files=dir_files,
         compiler=fake_compiler,
@@ -124,7 +124,7 @@ def test_start_compiling_handler_skips_clean_source_files(
     )
     compiler_handler._clean_source_files = MagicMock()
     # When
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     mocked_run_sub_process.assert_called_with(
         files=dir_files[sample_folder], compile_cmd=fake_compiler.cmd
@@ -145,7 +145,7 @@ def test_start_compiling_handler_calls_clean_source_files(
     dir_files = dict()
     sample_folder = sample_python_file_fixture
     dir_files[sample_folder] = ["fake_file"]
-    fake_compiler = FakeCompiler()
+    fake_compiler = FakeCompilerWrapper()
     compiler_handler = CompilerHandler(
         files=dir_files,
         compiler=fake_compiler,
@@ -154,7 +154,7 @@ def test_start_compiling_handler_calls_clean_source_files(
     )
     compiler_handler._clean_source_files = MagicMock()
     # When
-    compiler_handler.start_compiling()
+    compiler_handler.start()
     # Then
     mocked_run_sub_process.assert_called_with(
         files=dir_files[sample_folder], compile_cmd=fake_compiler.cmd
@@ -179,7 +179,7 @@ def test_clean_source_files(sample_files_fixture, caplog):
     dir_files["fake_path"] = list(sample_folder.iterdir())
     assert len(dir_files["fake_path"]) == 1
     # When
-    fake_compiler = FakeCompiler()
+    fake_compiler = FakeCompilerWrapper()
     compiler_handler = CompilerHandler(
         files=dir_files,
         compiler=fake_compiler,
@@ -207,7 +207,7 @@ def test_clean_build_files(sample_files_fixture, caplog):
     dir_files["fake_path"] = list(sample_folder.iterdir())
     assert len(dir_files["fake_path"]) == 1
     # When
-    fake_compiler = FakeCompiler()
+    fake_compiler = FakeCompilerWrapper()
     fake_compiler.cleanup = MagicMock()
     compiler_handler = CompilerHandler(
         files=dir_files,
