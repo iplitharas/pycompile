@@ -43,10 +43,12 @@ class CompilerHandler:
         For each `.py` file runs the compiler command
         to build the final executable `.so`
         """
+        total_iterations = sum(len(files) for files in self.files.values())
         for directory, dir_files in tqdm(
             self.files.items(),
+            total=total_iterations,
             ascii=True,
-            desc=f"{Colors.CYAN}Compiling{Colors.RESET}",
+            desc=f"{Colors.CYAN}Compiling using: `{self.compiler}`{Colors.RESET}",
             dynamic_ncols=True,
         ):
             with change_dir(directory):
@@ -67,9 +69,7 @@ class CompilerHandler:
         """
         deleted = [file.unlink() for file in files]
         logger.warning(
-            "%sFlag `--clean-source` is on, deleted "
-            f"#{len(deleted)} files.."
-            "%s",
+            "%sFlag `--clean-source` is on, deleted " f"#{len(deleted)}" "%s",
             Colors.CYAN,
             Colors.RESET,
         )

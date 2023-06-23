@@ -10,7 +10,9 @@ from pathlib import Path
 @dataclass(frozen=True)
 class CompilerCommands:  # pylint: disable=missing-class-docstring
     cython = "cythonize {} -3 --inplace"
+    cython_bench = "cythonize {} -3 --inplace --quiet 2>/dev/null"
     nuitka = "python -m nuitka --module {}"
+    nuitka_bench = "python -m nuitka --quiet --module {} 2>/dev/null"
 
 
 class Compiler(ABC):  # pylint: disable=missing-class-docstring
@@ -69,7 +71,7 @@ class CythonCompiler(Compiler):
         return self.__repr__()
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self.cmd})"
+        return f"{self.__class__.__name__}"
 
 
 class NuitkaCompiler(Compiler):
@@ -106,4 +108,4 @@ class NuitkaCompiler(Compiler):
         return self.__repr__()
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self.cmd})"
+        return f"{self.__class__.__name__}"

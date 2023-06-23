@@ -1,3 +1,4 @@
 [run]
 omit =
     **/private/**/*.py
+    **/tests/**/*.py

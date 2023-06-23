@@ -23,7 +23,7 @@ test: ## Run locally pytest with coverage
 check: ## Run isort black and pylint in all files
 	isort src
 	black src
-	pylint --recursive=y src
+	pylint --recursive y src  --ignore-paths src/examples
 
 .PHONY: help create-env poetry-install install-hooks check test package-install setup-local-dev
 

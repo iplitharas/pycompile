@@ -1116,5 +1116,5 @@ files = [
 
 [metadata]
 lock-version = "2.0"
-python-versions = ">3.8"
+python-versions = ">3.8"                       # MIT
 content-hash = "56a2feec284d77fe68ff067547504da650f852e060790c6c09c60bca2bb38ef6"

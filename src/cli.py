@@ -1,7 +1,8 @@
 """
-CLI entrypoint
+CLI entrypoint.
 """
 import logging
+import sys
 from pathlib import Path
 
 import click
@@ -13,6 +14,8 @@ from src import (
     NuitkaCompiler,
     setup_logging,
 )
+from src.benchmark import Benchmark
+from src.helpers import Colors
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +24,7 @@ logger = logging.getLogger(__name__)
 @click.option(
     "-i",
     "--input-path",
-    required=True,
+    required=False,
     type=click.Path(exists=True),
     help="Specify the file/folder input path, "
     "by default it will exclude any `test` and `__ini__.py` files",
@@ -67,6 +70,14 @@ logger = logging.getLogger(__name__)
     default=False,
     help="Clean final executables (.so) files",
 )
+@click.option(
+    "-b",
+    "--benchmark",
+    required=False,
+    flag_value=True,
+    default=False,
+    help="Benchmark the examples.",
+)
 def main(  # pylint: disable=too-many-arguments
     input_path,
     exclude_glob_paths,
@@ -75,6 +86,7 @@ def main(  # pylint: disable=too-many-arguments
     clean_source,
     keep_builds,
     clean_executables,
+    benchmark,
 ):
     r"""
                                           _ _
@@ -92,6 +104,7 @@ def main(  # pylint: disable=too-many-arguments
         clean_source,
         keep_builds,
         clean_executables,
+        benchmark,
     )
 
 
@@ -103,11 +116,23 @@ def handle_user_input(  # pylint: disable=too-many-arguments
     clean_source: bool,
     keep_builds: bool,
     clean_executables: bool,
+    benchmark: bool,
 ) -> None:
     """
     Helper function for handling the user input.
     """
     setup_logging(verbose)
+    if benchmark:
+        bench = Benchmark()
+        bench.start()
+        sys.exit(0)
+
+    if not input_path:
+        logger.error(
+            "%s Input path is missing, exiting...%s", Colors.FAIL, Colors.RESET
+        )
+        sys.exit(1)
+
     dir_files = FileHandler(
         input_path=input_path,
         additional_exclude_patterns=exclude_glob_paths,
