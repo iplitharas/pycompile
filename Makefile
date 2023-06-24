@@ -14,7 +14,7 @@ package-install: ## Build and install the package
 install-hooks: ## Install hooks
 	pre-commit install
 
-setup-local-dev: poetry-install package-install install-hooks ## Setup the local environment
+setup-local-dev: poetry-install install-hooks ## Setup the local environment
 
 test: ## Run locally pytest with coverage
 	pytest . -vv -p no:warnings --cov=.
