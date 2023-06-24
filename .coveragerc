@@ -3,3 +3,4 @@ omit =
     **/private/**/*.py
     **/tests/**/*.py
     **/tmp/**/*.py
+    **/examples/**/*.py
