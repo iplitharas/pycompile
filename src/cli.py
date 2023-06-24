@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
     required=False,
     type=click.Path(exists=True),
     help="Specify the file/folder input path, "
-    "by default it will exclude any `test` and `__ini__.py` files",
+    "by default it will exclude any `test` and `__init__.py` files",
 )
 @click.option(
     "-ex",
@@ -79,14 +79,14 @@ logger = logging.getLogger(__name__)
     help="Benchmark the examples.",
 )
 def main(  # pylint: disable=too-many-arguments
-    input_path,
-    exclude_glob_paths,
+    input_path: Path,
+    exclude_glob_paths: list[str],
     verbose,
-    engine,
-    clean_source,
-    keep_builds,
-    clean_executables,
-    benchmark,
+    engine: str,
+    clean_source: bool,
+    keep_builds: bool,
+    clean_executables: bool,
+    benchmark: bool,
 ):
     r"""
                                           _ _
@@ -96,31 +96,6 @@ def main(  # pylint: disable=too-many-arguments
    | .__/ \__, |\___\___/|_| |_| |_| .__/|_|_|\___|
    |_|    |___/                    |_|
    """
-    handle_user_input(
-        input_path,
-        exclude_glob_paths,
-        verbose,
-        engine,
-        clean_source,
-        keep_builds,
-        clean_executables,
-        benchmark,
-    )
-
-
-def handle_user_input(  # pylint: disable=too-many-arguments
-    input_path: Path,
-    exclude_glob_paths: list[str],
-    verbose: int,
-    engine: str,
-    clean_source: bool,
-    keep_builds: bool,
-    clean_executables: bool,
-    benchmark: bool,
-) -> None:
-    """
-    Helper function for handling the user input.
-    """
     setup_logging(verbose)
     if benchmark:
         bench = Benchmark()
@@ -136,7 +111,7 @@ def handle_user_input(  # pylint: disable=too-many-arguments
     dir_files = FileHandler(
         input_path=input_path,
         additional_exclude_patterns=exclude_glob_paths,
-    ).parse_files()
+    ).start()
 
     if dir_files:
         compiler = (

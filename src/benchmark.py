@@ -51,7 +51,7 @@ class Benchmark:
         file_handler = FileHandler(
             input_path=self.examples_path,
         )
-        self.dir_files = file_handler.parse_files()
+        self.dir_files = file_handler.start()
 
     def move_examples(self, temp_dir: Path) -> None:
         """
@@ -93,7 +93,7 @@ class Benchmark:
                 self.move_examples(temp_dir=temp_dir)
                 dir_files = FileHandler(
                     input_path=temp_dir,
-                ).parse_files()
+                ).start()
                 compiler_handler = CompilerHandler(
                     files=dir_files,
                     compiler=compiler,

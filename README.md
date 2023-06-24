@@ -46,6 +46,7 @@ compiler.
 | `--engine`            | Can be `cython` or `nuitka`.                                  |
 | `-exclude-glob-paths` | Glob file patterns for excluding specific files.              |
 | `--verbose`           | Increase log messages.                                        |
+| `--benchmark`         | Benchmark the examples.                                       |
 
 ### Compiling the examples
 For compiling the `examples` use the following command:
@@ -62,5 +63,10 @@ For running a benchmark on  the `examples` use the following command:
 ```bash
 pycompile -b 
 ```
+
 [![asciicast](https://asciinema.org/a/592966.svg)](https://asciinema.org/a/592966)
+
+
+![PyPI - Implementation](https://img.shields.io/pypi/implementation/pycompile)
+
 

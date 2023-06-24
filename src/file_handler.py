@@ -20,7 +20,7 @@ class FileHandler:
     """
     FileHandler is responsible for finding all the `.py` files  given
     any `input_path`.
-    example usage: FileHandler("./my_module).parse_files()
+    example usage: FileHandler("./my_module).start()
     """
 
     def __init__(
@@ -67,7 +67,7 @@ class FileHandler:
         if additional_exclude_patterns:
             self._exclude_patterns.extend(additional_exclude_patterns)
 
-    def parse_files(self) -> dict[str : list[Path]]:
+    def start(self) -> dict[str : list[Path]]:
         """
         For the given `input path` collect all valid `.py` files.
         :return: a dictionary for valid files within each directory.
