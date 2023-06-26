@@ -24,6 +24,7 @@ check: ## Run isort black and pylint in all files
 	isort src
 	black src
 	pylint --recursive y src  --ignore-paths src/examples
+	mypy src
 
 .PHONY: help create-env poetry-install install-hooks check test package-install setup-local-dev
 
