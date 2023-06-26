@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
     required=False,
     multiple=True,
     type=str,
-    default=FileHandler("..").exclude_patterns,
+    default=FileHandler("..").exclude_patterns,  # type: ignore[arg-type]
     help="glob files patterns of the files to be excluded, example: **/ignore_this_module.py",
 )
 @click.option("-v", "--verbose", count=True, help="verbose level")
@@ -47,9 +47,9 @@ def dry_run_cmd(input_path: Path, exclude_glob_paths: list[str], verbose: int):
         )
         return
 
-    for dir_name, dir_files in dir_files.items():
+    for dir_name, files in dir_files.items():
         print(f"{Colors.CYAN} {dir_name} {Colors.RESET}")
-        render_files(dir_files, is_last=False)
+        render_files(files, is_last=False)
 
 
 def render_files(files, indent="", is_last=True):

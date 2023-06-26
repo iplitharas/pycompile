@@ -9,7 +9,7 @@ Note:
 import logging
 from collections import defaultdict
 from pathlib import Path
-from typing import Generator
+from typing import Generator, Optional
 
 from src.helpers import Colors
 
@@ -25,8 +25,8 @@ class FileHandler:
 
     def __init__(
         self,
-        input_path: Path | str,
-        additional_exclude_patterns: list[str] = None,
+        input_path: Path,
+        additional_exclude_patterns: Optional[list[str]] = None,
     ):
         """
         By default, all the `test` files and any `__init__` files are excluded
@@ -67,14 +67,14 @@ class FileHandler:
         if additional_exclude_patterns:
             self._exclude_patterns.extend(additional_exclude_patterns)
 
-    def start(self) -> dict[str : list[Path]]:
+    def start(self) -> dict[str, list[Path]]:
         """
         For the given `input path` collect all valid `.py` files based on
         the `exclude_patterns`
         :return: a dictionary for valid files within each directory.
         """
 
-        files = defaultdict(list[Path])
+        files = defaultdict(list[Path])  # type: ignore[var-annotated]
         excluded_files = list(self._filter_files())
         logger.debug(
             "%sExcluded files: %s%s",
@@ -93,7 +93,7 @@ class FileHandler:
 
         return files
 
-    def _filter_files(self) -> Generator[Path, None, None]:
+    def _filter_files(self) -> Generator[Optional[Path], None, None]:
         """
         Collects all files to be excluded for the given `input path`
         using the `exclude_patterns` glob patterns.

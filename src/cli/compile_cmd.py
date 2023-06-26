@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
     required=False,
     multiple=True,
     type=str,
-    default=FileHandler("..").exclude_patterns,
+    default=FileHandler("..").exclude_patterns,  # type: ignore[arg-type]
     help="glob files patterns of the files to be excluded, example: **/ignore_this_module.py",
 )
 @click.option("-v", "--verbose", count=True, help="verbose level")

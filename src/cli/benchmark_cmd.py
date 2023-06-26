@@ -3,6 +3,7 @@ Benchmark command
 """
 import logging
 from pathlib import Path
+from typing import Sequence
 
 import click
 
@@ -59,7 +60,7 @@ def benchmark_cmd(
     """
     setup_logging(verbose)
     benc = Benchmark(input_path=Path(input_path))
-    compilers = []
+    compilers: Sequence = []
     match engine:
         case "cython":
             compilers = [CythonWrapper(cmd=CompilerCommands.cython_bench)]

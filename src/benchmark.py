@@ -4,6 +4,7 @@ Benchmark implementation
 import logging
 import sys
 from pathlib import Path
+from typing import Sequence
 
 from src import CompilerWrapper
 from src.compiler_handler import CompilerHandler
@@ -140,7 +141,7 @@ class Benchmark:  # pylint: disable=invalid-name
     def start(
         self,
         bench_type: str,
-        compilers: list[CompilerWrapper],
+        compilers: Sequence[CompilerWrapper],
         prof_func_name: str = "benchmark",
     ) -> None:
         """

@@ -15,7 +15,7 @@ import tempfile
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
+from typing import Generator, Iterable
 
 import pytest
 
@@ -34,7 +34,7 @@ class Colors:  # pylint: disable=missing-class-docstring
 
 
 @contextmanager
-def change_dir(file_path: Path):
+def change_dir(file_path: Path) -> Generator[None, None, None]:
     """
     Context manager to change the current active directory at the `file path` parents.
     This is needed to be able to include the compiled files in the
@@ -42,7 +42,8 @@ def change_dir(file_path: Path):
     """
     current_path = Path().absolute()
     try:
-        yield os.chdir(file_path)
+        os.chdir(file_path)
+        yield
     finally:
         os.chdir(current_path)
 
@@ -101,7 +102,7 @@ def run_pytest(directory: Path) -> None:
             "--capture=sys",
             "--durations=10",
             "-s",
-            directory,
+            str(directory),
         ]
     )
 

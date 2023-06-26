@@ -20,7 +20,7 @@ class CompilerHandler:
 
     def __init__(
         self,
-        files: dict[str : list[Path]],
+        files: dict[str, list[Path]],
         compiler: CompilerWrapper,
         clean_source: bool = False,
         keep_builds: bool = True,
@@ -35,7 +35,7 @@ class CompilerHandler:
         """
         Cleans the `source` files.
         """
-        deleted = [file.unlink() for file in files]
+        deleted = [file.unlink() for file in files]  # type: ignore[func-returns-value]
         logger.warning(
             "%sFlag `--clean-source` is on, deleted " f"#{len(deleted)}" "%s",
             Colors.CYAN,
@@ -76,7 +76,7 @@ class CompilerHandler:
             desc=f"{Colors.CYAN}Compiling using: `{self.compiler}`{Colors.RESET}",
             dynamic_ncols=True,
         ):
-            with change_dir(directory):
+            with change_dir(Path(directory)):
                 try:
                     run_sub_process(
                         files=dir_files, compile_cmd=self.compiler.cmd

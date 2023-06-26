@@ -28,4 +28,3 @@ def main():
 main.add_command(compile_cmd)
 main.add_command(benchmark_cmd)
 main.add_command(dry_run_cmd)
-main.default_command = compile_cmd
