@@ -30,6 +30,31 @@ class CompilerHandler:
         self.clean_source = clean_source
         self.keep_builds = keep_builds
 
+    @staticmethod
+    def _clean_source_files(files: list[Path]) -> None:
+        """
+        Cleans the `source` files.
+        """
+        deleted = [file.unlink() for file in files]
+        logger.warning(
+            "%sFlag `--clean-source` is on, deleted " f"#{len(deleted)}" "%s",
+            Colors.CYAN,
+            Colors.RESET,
+        )
+
+    def _clean_build_files(self, files: list[Path]) -> None:
+        """
+        Cleans the temporary `build` files.
+        """
+        for file in files:
+            self.compiler.cleanup(file_path=file)
+        logger.warning(
+            "%s Flag `-keep-builds` is off, all temp build files are deleted.."
+            "%s",
+            Colors.CYAN,
+            Colors.RESET,
+        )
+
     def clean_executables(self) -> None:
         """
         Cleans all the `.so` files.
@@ -61,28 +86,3 @@ class CompilerHandler:
                         self._clean_build_files(files=dir_files)
                     if self.clean_source:
                         self._clean_source_files(files=dir_files)
-
-    @staticmethod
-    def _clean_source_files(files: list[Path]) -> None:
-        """
-        Cleans the `source` files.
-        """
-        deleted = [file.unlink() for file in files]
-        logger.warning(
-            "%sFlag `--clean-source` is on, deleted " f"#{len(deleted)}" "%s",
-            Colors.CYAN,
-            Colors.RESET,
-        )
-
-    def _clean_build_files(self, files: list[Path]) -> None:
-        """
-        Cleans the temporary `build` files.
-        """
-        for file in files:
-            self.compiler.cleanup(file_path=file)
-        logger.warning(
-            "%s Flag `-keep-builds` is off, all temp build files are deleted.."
-            "%s",
-            Colors.CYAN,
-            Colors.RESET,
-        )

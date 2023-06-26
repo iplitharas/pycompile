@@ -69,7 +69,8 @@ class FileHandler:
 
     def start(self) -> dict[str : list[Path]]:
         """
-        For the given `input path` collect all valid `.py` files.
+        For the given `input path` collect all valid `.py` files based on
+        the `exclude_patterns`
         :return: a dictionary for valid files within each directory.
         """
 
@@ -119,6 +120,19 @@ class FileHandler:
                     yield from sub_dir.rglob(pattern="**/*.py")
 
             yield from self.input_path.glob(pattern="*.py")
+
+    def collect_with_pattern(self, pattern: str):
+        """
+        Collects all python files from the `input_path` where they mach
+        the `pattern`
+
+        """
+        if not self.input_path.is_dir():
+            yield self.input_path
+        else:
+            yield from (
+                file for file in self._collect_files() if file.match(pattern)
+            )
 
     def __str__(self) -> str:
         return (

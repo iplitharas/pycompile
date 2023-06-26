@@ -16,6 +16,7 @@ tqdm = "^4.64.1"                      # MIT
 cython = "^0.29.33"                   # Apache
 nuitka = "^1.4.8"                     # Apache 2.0
 pytest-benchmark = "^4.0.0"           # BSD-2-Clause
+memory-profiler = "^0.61.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -32,12 +33,12 @@ requires = [ "setuptools", "wheel"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-pycompile = "src.cli:main"
+pycompile = "src.cli.entrypoint:main"
 
 
 [tool.black]
 line-length = 80
-target-version = ["py38", "py39"]
+target-version = ["py310"]
 
 [tool.isort]
 profile = "black"

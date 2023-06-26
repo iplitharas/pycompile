@@ -1,13 +1,23 @@
 """
 implementations for
-`change_dir` context manager
+`change_dir` context manager,
+`copy_files` context manager,
+`decorate_functions`,
+`run_pytest`,
 and `run_sub_process` helper function.
 """
+import ast
 import os
+import re
+import shutil
 import subprocess
+import tempfile
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Iterable
+
+import pytest
 
 
 @dataclass(frozen=True)
@@ -37,9 +47,68 @@ def change_dir(file_path: Path):
         os.chdir(current_path)
 
 
+@contextmanager
+def copy_files(from_dir: Path):
+    """
+    Copies all files at a temp directory.
+    """
+    with tempfile.TemporaryDirectory() as temp_dir:
+        shutil.copytree(from_dir, temp_dir, dirs_exist_ok=True)
+        yield Path(temp_dir)
+
+
+def decorate_functions(
+    dec_import: str,
+    dec_name: str,
+    files: Iterable[Path],
+    func_name_pattern: str,
+) -> None:
+    """
+    For each file:
+    add the `decorator import` at the top level of the file and
+    decorate all the functions with the `decorate name`
+    """
+    for file in files:
+        with open(
+            file, "r", encoding="utf-8"
+        ) as f:  # pylint: disable=invalid-name
+            tree = ast.parse(f.read())
+
+        modified_tree = ast.parse("")
+        modified_tree.body.extend([ast.parse(dec_import).body[0]])
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef):
+                if re.search(func_name_pattern, node.name):
+                    node.decorator_list.insert(
+                        0, ast.Name(id=dec_name, ctx=ast.Load())
+                    )
+
+        with open(
+            file, "w", encoding="utf-8"
+        ) as f:  # pylint: disable=invalid-name
+            f.write(ast.unparse(modified_tree))
+            f.write("\n\n")
+            f.write(ast.unparse(tree))
+
+
+def run_pytest(directory: Path) -> None:
+    """
+    Invoke `pytest` at the `directory`.
+    """
+    pytest.main(
+        [
+            "-vv",
+            "--capture=sys",
+            "--durations=10",
+            "-s",
+            directory,
+        ]
+    )
+
+
 def run_sub_process(files: list[Path], compile_cmd: str) -> None:
     """
-    For each file path runs in a subprocess the corresponding compiler command.
+    For each file path run in a subprocess the corresponding compiler command.
     """
     for file in files:
         cmd_str = compile_cmd.format(file.absolute())
