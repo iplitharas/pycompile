@@ -1121,7 +1121,7 @@ test = ["argcomplete (>=2.0)", "pre-commit", "pytest", "pytest-mock"]
 name = "types-tqdm"
 version = "4.65.0.1"
 description = "Typing stubs for tqdm"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 files = [
@@ -1251,4 +1251,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">3.8"                       # MIT
-content-hash = "8d4b83f031f7e7c3ab6c26b8e6ca9f23c45433953eca8439e2653ae5cd361bec"
+content-hash = "6858e2ab44cb73f7b3464bd8ed320bf6eb24a64b3bfbf44515092e547af3bb2c"

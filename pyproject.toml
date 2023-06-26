@@ -16,8 +16,7 @@ tqdm = "^4.64.1"                      # MIT
 cython = "^0.29.33"                   # Apache
 nuitka = "^1.4.8"                     # Apache 2.0
 pytest-benchmark = "^4.0.0"           # BSD-2-Clause
-memory-profiler = "^0.61.0"
-types-tqdm = "^4.65.0.1"
+memory-profiler = "^0.61.0"           # BSD
 
 
 [tool.poetry.group.dev.dependencies]
@@ -29,6 +28,7 @@ pytest-cov = "^4.0.0"                # MIT
 pre-commit = "^3.1.0"                # MIT
 ipython = "^8.10.0"                  # BSD-3-Clause
 mypy = "^1.4.1"                      # MIT
+types-tqdm = "^4.65.0.1"             # Apache 2.0
 
 [build-system]
 requires = [ "setuptools", "wheel"]
