@@ -65,5 +65,5 @@ jobs:
 
       - name: Benchmark
         run: |
-          pycompile -b
+          pycompile benchmark -i ./src/examples
 
