@@ -115,7 +115,7 @@ Line #    Mem usage    Increment  Occurrences   Line Contents
 ```text
 46.03s call     test_examples.py::test_examples
 ```
-**Memory benchmark** using:[cython](https://cython.org/
+**Memory benchmark** using:[cython](https://cython.org/)
 ```text
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
@@ -130,7 +130,7 @@ Line #    Mem usage    Increment  Occurrences   Line Contents
 ```text
 4.33s call     test_examples.py::test_examples
 ```
-**Memory benchmark** using:[nuitka])https://nuitka.net/index.html
+**Memory benchmark** using:[nuitka](https://nuitka.net/index.html)
 ```text
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
@@ -164,7 +164,7 @@ Legend:
 29.40s call     test_examples.py::test_examples
 ```
 
-**CPU benchmark** using:[cython](https://cython.org/
+**CPU benchmark** using:[cython](https://cython.org/)
 ```text
 Name (time in s)        Min     Max    Mean  StdDev  Median     IQR  Outliers     OPS  Rounds  Iterations
 ---------------------------------------------------------------------------------------------------------
@@ -178,7 +178,7 @@ Legend:
 31.80s call     test_examples.py::test_examples
 ```
 
-**CPU benchmark** using:[nuitka])https://nuitka.net/index.html
+**CPU benchmark** using:[nuitka](https://nuitka.net/index.html)
 ```text
 ------------------------------------------- benchmark: 1 tests ------------------------------------------
 Name (time in s)        Min     Max    Mean  StdDev  Median     IQR  Outliers     OPS  Rounds  Iterations
