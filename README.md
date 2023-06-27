@@ -88,19 +88,25 @@ examples
 
 For running a benchmark on  the `input-path` use the following command:
 ```bash
-pycompile benchmark -i src/examples -vvv --engine cython
+pycompile benchmark -i src/examples -vvv
 ```
 which by default will start a `memory` and a `cpu` benchmark, starting with 
 `python` and then with `cython` and `nuitka`
 > The python package must have a `test_module.py` because both benchmark types are invoked 
 > with `pytest` runs
 
-For **memory profiling** the script will decorate all the functions in `main.py` 
+* For **memory profiling** the script will decorate all the functions in `benchmark.py` 
   with the `profile` decorator from `memory-profiler`. This is not optimal memory profiling, 
   because we don't actually `profile` the function itself, instead we profile the `caller` but it's necessary
   if we want to `profile` also the compiled code.
+  Use the `profile_func_pattern` to specify the function to be profiled in different module for example 
+  if `main` is the entrypoint under `main.py` use `--profile_func_pattern main`.
 
 Hence, the following structure are required for the `benchmark` subcommand.
+
+* For **cpu profiling** the same approached is being used, but instead of decorating the `calling functions` 
+  it `decorates` the test cases with the `benchmark` from `pytest-benchmark`.
+
 
 ```text
  module
@@ -154,9 +160,6 @@ Line #    Mem usage    Increment  Occurrences   Line Contents
 ```text
 3.45s call     test_examples.py::test_examples
 ```
-
-For **cpu profiling** the same approached is being used, but instead of decorating the `calling functions` 
- it `decorates` the test cases with the `benchmark` from `pytest-benchmark`.
 
 **CPU benchmark** using:`3.10.9 (main, Feb  2 2023, 12:59:36) [Clang 14.0.0 (clang-1400.0.29.202)]`
 ```text
