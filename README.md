@@ -91,13 +91,100 @@ which by default will start a `memory` and a `cpu` benchmark, starting with
 > The python package must have a `test_module.py` because both benchmark types are invoked 
 > with `pytest` runs
 
-* For **memory profiling** the script will decorate all the functions in `main.py` 
+For **memory profiling** the script will decorate all the functions in `main.py` 
   with the `profile` decorator from `memory-profiler`. This is not optimal memory profiling, 
   because we don't actually `profile` the function itself, instead we profile the `caller` but it's necessary
   if we want to `profile` also the compiled code.
+Memory benchmark using:`3.10.9 (main, Feb  2 2023, 12:59:36) [Clang 14.0.0 (clang-1400.0.29.202)`
+```text
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+     7     49.4 MiB     49.4 MiB           1   @profile
+     8                                         def samples_benchmark():
+     9    127.7 MiB     78.4 MiB           1       sum_of_squares()
+    10    166.0 MiB     38.3 MiB           1       harmonic_mean()
+    11    166.0 MiB      0.0 MiB           1       fibonacci(30)
+    12    204.2 MiB     38.2 MiB           1       sum_numbers()
+    13     57.7 MiB   -146.5 MiB           1       sum_strings()
+```
+```text
+46.03s call     test_examples.py::test_examples
+```
+Memory benchmark using:`Cython`
+```text
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+     7     66.5 MiB     66.5 MiB           1   @profile
+     8                                         def samples_benchmark():
+     9    103.7 MiB     37.3 MiB           1       sum_of_squares()
+    10    102.9 MiB     -0.8 MiB           1       harmonic_mean()
+    11    102.9 MiB      0.0 MiB           1       fibonacci(30)
+    12    104.9 MiB      2.0 MiB           1       sum_numbers()
+    13     65.6 MiB    -39.3 MiB           1       sum_strings()
+```
+```text
+4.33s call     test_examples.py::test_examples
+```
+Memory benchmark using:`Nuitka`
+```text
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+     7     71.6 MiB     71.6 MiB           1   @profile
+     8                                         def samples_benchmark():
+     9    148.8 MiB     77.1 MiB           1       sum_of_squares()
+    10    186.5 MiB     37.7 MiB           1       harmonic_mean()
+    11    186.5 MiB      0.0 MiB           1       fibonacci(30)
+    12    225.1 MiB     38.6 MiB           1       sum_numbers()
+    13    225.1 MiB      0.0 MiB           1       sum_strings()
+```
+```text
+3.45s call     test_examples.py::test_examples
+```
 
-* For **cpu profiling** the same approached is being used, but instead of decorating the `calling functions` 
+For **cpu profiling** the same approached is being used, but instead of decorating the `calling functions` 
  it `decorates` the test cases with the `benchmark` from `pytest-benchmark`.
+
+CPU benchmark using:`3.10.9 (main, Feb  2 2023, 12:59:36) [Clang 14.0.0 (clang-1400.0.29.202)]`
+```text
+------------------------------------------- benchmark: 1 tests ------------------------------------------
+Name (time in s)        Min     Max    Mean  StdDev  Median     IQR  Outliers     OPS  Rounds  Iterations
+---------------------------------------------------------------------------------------------------------
+test_examples        3.9257  4.0640  3.9731  0.0605  3.9387  0.0917       1;0  0.2517       5           1
+---------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+=================================================================================================================
+29.40s call     test_examples.py::test_examples
+```
+CPU benchmark using:`Cython`
+```text
+Name (time in s)        Min     Max    Mean  StdDev  Median     IQR  Outliers     OPS  Rounds  Iterations
+---------------------------------------------------------------------------------------------------------
+test_examples        4.4198  4.6645  4.4945  0.1048  4.4340  0.1376       1;0  0.2225       5           1
+---------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+===================================================================================================================
+31.80s call     test_examples.py::test_examples
+```
+CPU benchmark using:`Nuitka`
+```text
+------------------------------------------- benchmark: 1 tests ------------------------------------------
+Name (time in s)        Min     Max    Mean  StdDev  Median     IQR  Outliers     OPS  Rounds  Iterations
+---------------------------------------------------------------------------------------------------------
+test_examples        3.2931  3.5091  3.4278  0.0972  3.4875  0.1571       1;0  0.2917       5           1
+---------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+===================================================================================================================
+24.02s call     test_examples.py::test_examples
+```
 
 Hence, the following structure are required for the `benchmark` subcommand.
 
