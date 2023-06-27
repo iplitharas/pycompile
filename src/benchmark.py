@@ -14,7 +14,7 @@ from src.helpers import Colors, copy_files, decorate_functions, run_pytest
 logger = logging.getLogger(__name__)
 
 
-class Benchmark:  # pylint: disable=invalid-name
+class Benchmark:
     """
     Runs a benchmarks (memory, cpu)  with (``python``, ``Cython``, ``Nuitka``)
     on ``input_path``  files using the:
@@ -98,8 +98,10 @@ class Benchmark:  # pylint: disable=invalid-name
     @staticmethod
     def mem_bench(input_path: Path, prof_func_name: str, engine: str) -> None:
         """
-        decorate all the function from the `examples path` marked as `benchmark`
-        with `@profile` decorator from `memory_profiler`
+        decorate all the function(s) from the ``input_path`` where their name match
+        the ``prof_func_name`` pattern,
+        with the ``@profile`` decorator from ``memory_profiler``.
+
         Finally, invoke pytest within.
         """
         logger.info(
@@ -124,8 +126,9 @@ class Benchmark:  # pylint: disable=invalid-name
     @staticmethod
     def cpu_bench(input_path: Path, engine: str) -> None:
         """
-        decorate all the test functions from the `examples path`
-        with the `@benchmark_wrapper` decorator
+        decorate all the test functions from the ``input_path``
+        with the ``@benchmark_wrapper`` decorator.
+
         Finally, invoke pytest within.
         """
         logger.info(

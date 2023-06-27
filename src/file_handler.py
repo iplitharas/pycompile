@@ -1,10 +1,10 @@
 """
 FileHandler implementation
-Note:
-`glob patterns`: `**`:   Recursively matches zero or more directories
-                         that fall under the current directory.
-                 `*` :   On Unix, will match everything except slashes.
-                         On Windows, it will avoid matching backslashes as well as slashes.
+glob patterns ::
+    **:   Recursively matches zero or more directories
+          that fall under the current directory.
+    * :   On Unix, will match everything except slashes.
+          On Windows, it will avoid matching backslashes as well as slashes.
 """
 import logging
 from collections import defaultdict
@@ -18,9 +18,10 @@ logger = logging.getLogger(__name__)
 
 class FileHandler:
     """
-    FileHandler is responsible for finding all the `.py` files  given
-    any `input_path`.
-    example usage: FileHandler("./my_module).start()
+    FileHandler is responsible for finding all the ``.py`` files within
+    the  ``input_path``.
+    example usage::
+       dir_files = FileHandler("./my_module").start()
     """
 
     def __init__(
@@ -29,9 +30,10 @@ class FileHandler:
         additional_exclude_patterns: Optional[list[str]] = None,
     ):
         """
-        By default, all the `test` files and any `__init__` files are excluded
-        :param `input_path`: Should be a valid file/directory path.
-        :param `additional_exclude_patterns`: Any optional additional glob patterns.
+        By default, all the ``test`` files and any ``__init__`` files are excluded.
+
+        :param input_path: Should be a valid file/directory path.
+        :param additional_exclude_patterns: Any optional additional glob patterns.
         """
         self.input_path = input_path
         self.exclude_patterns = additional_exclude_patterns or []
@@ -71,8 +73,9 @@ class FileHandler:
 
     def start(self) -> dict[str, list[Path]]:
         """
-        For the given `input path` collect all valid `.py` files based on
-        the `exclude_patterns`
+        For the given ``input path`` collect all valid ``.py`` files based on
+        the ``exclude_patterns``
+
         :return: a dictionary for valid files within each directory.
         """
 
@@ -125,10 +128,13 @@ class FileHandler:
 
     def collect_with_pattern(self, pattern: str) -> Generator[Path, None, None]:
         """
-        Collects all python files from the `input_path` where they mach
-        the `pattern`
+        Collects all python files within the ``input_path`` where they mach
+        the ``pattern``
 
+        :param pattern: str containing glob patters
+        :return: A Generator of file paths.
         """
+
         if not self.input_path.is_dir():
             yield self.input_path
         else:

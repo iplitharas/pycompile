@@ -14,8 +14,12 @@ logger = logging.getLogger(__name__)
 
 class CompilerHandler:
     """
-     CompilerHandler is responsible for compiling all the `.py` files using
-    `Cython` or `Nuitka`
+    CompilerHandler is responsible for compiling all the ``.py`` files using
+    ``Cython`` or ``Nuitka``
+    example usage::
+        compiler_handler = CompilerHandler(files=dir_files,compiler=compiler,
+                            clean_source=True,keep_builds=True)
+        compiler_handler.start()
     """
 
     def __init__(
@@ -65,8 +69,8 @@ class CompilerHandler:
 
     def start(self) -> None:
         """
-        For each `.py` file runs the compiler command
-        to build the final executable `.so`
+        For each ``.py`` file runs the compiler command
+        to build the final executable ``.so``
         """
         total_iterations = sum(len(files) for files in self.files.values())
         for directory, dir_files in tqdm(

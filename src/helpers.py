@@ -1,10 +1,5 @@
 """
-implementations for
-`change_dir` context manager,
-`copy_files` context manager,
-`decorate_functions`,
-`run_pytest`,
-and `run_sub_process` helper function.
+pycompile helper functions.
 """
 import ast
 import os
@@ -21,7 +16,11 @@ import pytest
 
 
 @dataclass(frozen=True)
-class Colors:  # pylint: disable=missing-class-docstring
+class Colors:
+    """
+    pycompile colors
+    """
+
     HEADER = "\033[95m"
     BLUE = "\033[94m"
     CYAN = "\033[96m"

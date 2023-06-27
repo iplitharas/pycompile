@@ -30,7 +30,7 @@ docs: build-api-docs build-docs  ## Build and server the docs locally
 	cd docs && python -m http.server 8083 --directory _build/html
 
 build-api-docs: ## Build api docs
-	sphinx-apidoc --output-dir docs src src/examples/*.py  --separate
+	sphinx-apidoc --output-dir docs src  src/examples/*.py  --separate
 
 build-docs: ## Build docs
 	sphinx-build docs docs/_build/html
