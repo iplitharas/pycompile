@@ -86,7 +86,7 @@ examples
 | `--verbose`                   | Increase log messages.                                        |
 | `--profile_func_pattern TEXT` | function name pattern for profiling defaults to `benchmark`   |
 
-For running a benchmark on  the `examples` use the following command:
+For running a benchmark on  the `input-path` use the following command:
 ```bash
 pycompile benchmark -i src/examples -vvv --engine cython
 ```
@@ -99,6 +99,15 @@ For **memory profiling** the script will decorate all the functions in `main.py`
   with the `profile` decorator from `memory-profiler`. This is not optimal memory profiling, 
   because we don't actually `profile` the function itself, instead we profile the `caller` but it's necessary
   if we want to `profile` also the compiled code.
+
+Hence, the following structure are required for the `benchmark` subcommand.
+
+```text
+ module
+    ├── sample_funcs.py                        # implementation
+    ├── main.py                                # entrypoint
+    ├── test_sample_funcs.py                   # test cases
+```
 
 **Memory benchmark** using:`3.10.9 (main, Feb  2 2023, 12:59:36) [Clang 14.0.0 (clang-1400.0.29.202)`
 ```text
@@ -191,15 +200,6 @@ Legend:
   OPS: Operations Per Second, computed as 1 / Mean
 ===================================================================================================================
 24.02s call     test_examples.py::test_examples
-```
-
-Hence, the following structure are required for the `benchmark` subcommand.
-
-```text
- module
-    ├── sample_funcs.py                        # implementation
-    ├── main.py                                # entrypoint
-    ├── test_sample_funcs.py                   # test cases
 ```
 
 
