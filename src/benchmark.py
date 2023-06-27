@@ -16,36 +16,51 @@ logger = logging.getLogger(__name__)
 
 class Benchmark:  # pylint: disable=invalid-name
     """
-    Runs a benchmarks (memory, cpu)  with (`python`, `Cython`, `Nuitka`) on `input_path`  files
-    using the `benchmark` pytest fixture from `pytest-benchmark` framework,
-    and `@profile` decorator from `memory-profiler`.
+    Runs a benchmarks (memory, cpu)  with (``python``, ``Cython``, ``Nuitka``)
+    on ``input_path``  files using the:
 
-    For `memory` benchmark the required directory structure needs to be:
-    ```module
-        ├── sample_funcs.py                        # implementation
-        ├── main.py                                # entrypoint
-        ├── test_sample_funcs.py                   # test cases
-    ```
-    where in `main.py` we call any functions from `sample.funcs.py`. This is needed because
-    once we compile the `sample_funcs`.py we aren't able to use
-     the `profile` decorator from `memory-profiler`
-    in that case, `mem_bench` function will decorate all the
-    functions that they match the `prof_func_name`
-    with `@profile`
-    for example:
-    ```
-    def sum_of_squares_benchmark():
-        sum_of_squares()
-    ```
-    ```
-    @profile
-    def sum_of_squares_benchmark():
-        sum_of_squares()
-    ```
-    NOTE: this way of `memory profiling` isn't accurate (because we don't profile the
-    actual python functions), and neither we can do for compiled code
-    with python profiling tools, but it could be an indicator.
-    The test files are needed to be able to execute the functions with the right arguments.
+    * ``benchmark`` pytest fixture from ``pytest-benchmark`` framework
+
+    *  ``@profile`` decorator from ``memory-profiler``.
+
+    For ``memory`` benchmark the required directory structure needs to be::
+
+        module
+            ├── sample_funcs.py                        # implementation
+            ├── main.py                                # entrypoint
+            ├── test_sample_funcs.py                   # test cases
+
+    where in ``main.py`` we call any functions from ``sample.funcs.py``.
+    This is needed because once we compile the ``sample_funcs.py`` we aren't able to use
+    the ``profile`` decorator from ``memory-profiler``
+    in that case, ``mem_bench`` function will decorate all the
+    functions that they match the ``prof_func_name``
+    with ``@profile``
+    for example::
+
+        def sum_of_squares_benchmark():
+            sum_of_squares()
+
+
+
+        @profile
+        def sum_of_squares_benchmark():
+            sum_of_squares()
+
+    For ``cpu`` benchmark the required directory structure needs to be::
+
+          module
+            ├── sample_funcs.py                        # implementation
+            ├── test_sample_funcs.py                   # test cases
+
+
+    **NOTES**
+
+    * this way of **memory profiling** isn't accurate (because we don't profile the
+      actual python functions), and neither we can do for compiled code
+      with python *profiling tools*, but it could be an indicator.
+
+    * The ``test files`` are needed to be able to execute the functions with the right arguments.
     """
 
     def __init__(self, input_path):

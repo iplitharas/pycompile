@@ -17,6 +17,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx.ext.githubpages",
+    "myst_parser",
 ]
 
 templates_path = ["_templates"]
@@ -28,3 +29,12 @@ autoclass_content = "both"
 
 html_theme = "furo"
 html_static_path = ["_static"]
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".txt": "markdown",
+    ".md": "markdown",
+}
+myst_enable_extensions = ["colon_fence"]
+# autodoc_default_options = {
+#     "attrs_inline": True,
+# }

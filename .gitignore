@@ -70,6 +70,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+*.rst
 
 # PyBuilder
 target/
@@ -131,4 +132,6 @@ dmypy.json
 # Pycharm
 .idea/
 .DS_Store
+
+
 
