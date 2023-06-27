@@ -18,19 +18,21 @@ class CompilerCommands:  # pylint: disable=missing-class-docstring
 class CompilerWrapper(ABC):  # pylint: disable=missing-class-docstring
     @property
     @abstractmethod
-    def cmd(self):  # pylint: disable=missing-function-docstring
+    def cmd(self) -> str:  # pylint: disable=missing-function-docstring
         raise NotImplementedError("Each compiler should have a command!")
 
     @cmd.setter
-    def cmd(self, new_cmd: str):  # pylint: disable=missing-function-docstring
+    def cmd(
+        self, new_cmd: str
+    ) -> None:  # pylint: disable=missing-function-docstring
         raise NotImplementedError(
             "Each compiler should be able to set the command!"
         )
 
     @abstractmethod
-    def cleanup(
+    def cleanup(  # pylint: disable=missing-function-docstring
         self, file_path: Path
-    ):  # pylint: disable=missing-function-docstring
+    ) -> None:
         raise NotImplementedError("Each compiler should clean it's mess!")
 
 
@@ -47,11 +49,11 @@ class CythonWrapper(CompilerWrapper):
         self.cmd = cmd
 
     @property
-    def cmd(self):
+    def cmd(self) -> str:
         return self._cmd
 
     @cmd.setter
-    def cmd(self, new_cmd: str):
+    def cmd(self, new_cmd: str) -> None:
         self._cmd = new_cmd
 
     def cleanup(self, file_path: Path) -> None:
@@ -84,14 +86,14 @@ class NuitkaWrapper(CompilerWrapper):
         self.cmd = cmd
 
     @property
-    def cmd(self):
+    def cmd(self) -> str:
         return self._cmd
 
     @cmd.setter
-    def cmd(self, new_cmd: str):
+    def cmd(self, new_cmd: str) -> None:
         self._cmd = new_cmd
 
-    def cleanup(self, file_path: Path):
+    def cleanup(self, file_path: Path) -> None:
         """
         Deletes the `build`directory alongside with the `file.pyi` temp file.
         """

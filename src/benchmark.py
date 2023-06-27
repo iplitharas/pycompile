@@ -63,7 +63,7 @@ class Benchmark:  # pylint: disable=invalid-name
     * The ``test files`` are needed to be able to execute the functions with the right arguments.
     """
 
-    def __init__(self, input_path):
+    def __init__(self, input_path: Path):
         self.input_path = input_path
 
     @staticmethod

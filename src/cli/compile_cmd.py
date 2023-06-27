@@ -70,12 +70,12 @@ logger = logging.getLogger(__name__)
 def compile_cmd(  # pylint: disable=R0913
     input_path: Path,
     exclude_glob_paths: list[str],
-    verbose,
+    verbose: int,
     engine: str,
     clean_source: bool,
     keep_builds: bool,
     clean_executables: bool,
-):
+) -> None:
     """
     Compile the python files using `cython` or `nuitka`.
     """

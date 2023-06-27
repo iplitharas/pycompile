@@ -24,7 +24,7 @@ check: ## Run isort black and pylint in all files
 	isort src
 	black src
 	pylint --recursive y src  --ignore-paths src/examples
-	mypy src
+	mypy src --exclude src/examples
 
 docs: build-api-docs build-docs  ## Build and server the docs locally
 	cd docs && python -m http.server 8083 --directory _build/html

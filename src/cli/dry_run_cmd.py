@@ -30,7 +30,9 @@ logger = logging.getLogger(__name__)
     help="glob files patterns of the files to be excluded, example: **/ignore_this_module.py",
 )
 @click.option("-v", "--verbose", count=True, help="verbose level")
-def dry_run_cmd(input_path: Path, exclude_glob_paths: list[str], verbose: int):
+def dry_run_cmd(
+    input_path: Path, exclude_glob_paths: list[str], verbose: int
+) -> None:
     """
     Perform a dry run.
     """
@@ -52,7 +54,9 @@ def dry_run_cmd(input_path: Path, exclude_glob_paths: list[str], verbose: int):
         render_files(files, is_last=False)
 
 
-def render_files(files, indent="", is_last=True):
+def render_files(
+    files: list[Path], indent: str = "", is_last: bool = True
+) -> None:
     """
     Render the output in a human-readable format.
     """

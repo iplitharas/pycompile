@@ -8,7 +8,13 @@ from typing import Sequence
 
 import click
 
-from src import CompilerCommands, CythonWrapper, NuitkaWrapper, setup_logging
+from src import (
+    CompilerCommands,
+    CompilerWrapper,
+    CythonWrapper,
+    NuitkaWrapper,
+    setup_logging,
+)
 from src.benchmark import Benchmark
 from src.helpers import Colors
 
@@ -55,8 +61,12 @@ logger = logging.getLogger(__name__)
 )
 @click.option("-v", "--verbose", count=True, help="verbose level")
 def benchmark_cmd(
-    input_path: Path, engine: str, bench_type, prof_func_name, verbose: int
-):
+    input_path: Path,
+    engine: str,
+    bench_type: str,
+    prof_func_name: str,
+    verbose: int,
+) -> None:
     """
     Run a memory and cpu benchmark.
     """
@@ -69,7 +79,7 @@ def benchmark_cmd(
         )
         sys.exit(1)
     benc = Benchmark(input_path=input_path)
-    compilers: Sequence = []
+    compilers: Sequence[CompilerWrapper] = []
     match engine:
         case "cython":
             compilers = [CythonWrapper(cmd=CompilerCommands.cython_bench)]

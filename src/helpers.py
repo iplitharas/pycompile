@@ -49,7 +49,7 @@ def change_dir(file_path: Path) -> Generator[None, None, None]:
 
 
 @contextmanager
-def copy_files(from_dir: Path):
+def copy_files(from_dir: Path) -> Generator[Path, None, None]:
     """
     Copies all files at a temp directory.
     """

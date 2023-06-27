@@ -34,7 +34,7 @@ class FileHandler:
         :param `additional_exclude_patterns`: Any optional additional glob patterns.
         """
         self.input_path = input_path
-        self.exclude_patterns = additional_exclude_patterns
+        self.exclude_patterns = additional_exclude_patterns or []
 
     @property
     def input_path(self) -> Path:
@@ -51,14 +51,16 @@ class FileHandler:
             raise ValueError(f"Path: {Path(path)} doesn't exist...")
 
     @property
-    def exclude_patterns(self):
+    def exclude_patterns(self) -> list[str]:
         """
         Current glob exclude patterns
         """
         return self._exclude_patterns
 
     @exclude_patterns.setter
-    def exclude_patterns(self, additional_exclude_patterns: list[str] | None):
+    def exclude_patterns(
+        self, additional_exclude_patterns: list[str] | None
+    ) -> None:
         self._exclude_patterns = [
             "**/test**",
             "**/__init__.py",
@@ -121,7 +123,7 @@ class FileHandler:
 
             yield from self.input_path.glob(pattern="*.py")
 
-    def collect_with_pattern(self, pattern: str):
+    def collect_with_pattern(self, pattern: str) -> Generator[Path, None, None]:
         """
         Collects all python files from the `input_path` where they mach
         the `pattern`

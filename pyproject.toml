@@ -55,6 +55,9 @@ skip = [".gitignore", ".dockerignore" ,".env"]
 [tool.mypy]
 python_version = "3.10"
 strict_optional = true
+strict = true
+
+
 
 
 

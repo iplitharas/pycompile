@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 @click.group()
-def main():
+def main() -> None:
     r"""
                                           _ _
     _ __  _   _  ___ ___  _ __ ___  _ __ (_) | ___
