@@ -2,6 +2,7 @@
 Benchmark command
 """
 import logging
+import sys
 from pathlib import Path
 from typing import Sequence
 
@@ -9,6 +10,7 @@ import click
 
 from src import CompilerCommands, CythonWrapper, NuitkaWrapper, setup_logging
 from src.benchmark import Benchmark
+from src.helpers import Colors
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +61,14 @@ def benchmark_cmd(
     Run a memory and cpu benchmark.
     """
     setup_logging(verbose)
-    benc = Benchmark(input_path=Path(input_path))
+    input_path = Path(input_path)
+    if not input_path.is_dir():
+        print(
+            f"{Colors.FAIL} Benchmark input path: `{input_path}` needs to "
+            f"be a directory, exiting...{Colors.RESET}"
+        )
+        sys.exit(1)
+    benc = Benchmark(input_path=input_path)
     compilers: Sequence = []
     match engine:
         case "cython":
