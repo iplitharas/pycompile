@@ -111,7 +111,7 @@ Hence, the following structure are required for the `benchmark` subcommand.
 ```text
  module
     ├── sample_funcs.py                        # implementation
-    ├── main.py                                # entrypoint
+    ├── main.py                                # entrypoint with a `main` function, during compilation will be excluded
     ├── test_sample_funcs.py                   # test cases
 ```
 
