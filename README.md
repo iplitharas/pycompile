@@ -13,6 +13,8 @@
 A CLI tool for compiling python source code using [Cython](https://cython.org/)  or
 [Nuitka](https://nuitka.net/).
 
+[docs](https://iplitharas.github.io/pycompile/)
+
 ## Table of contents
 1. [Local-development](#local-development)
 2. [compile](#compile)
