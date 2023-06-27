@@ -26,7 +26,13 @@ check: ## Run isort black and pylint in all files
 	pylint --recursive y src  --ignore-paths src/examples
 	mypy src
 
-.PHONY: help create-env poetry-install install-hooks check test package-install setup-local-dev
+docs: ## Build and run the docs locally
+	cd docs && make html && python -m http.server 8083 --directory _build/html
+
+build-api-docs: ## Build api docs
+	sphinx-apidoc --output-dir docs src src/examples/*.py  src/cli/*.py  --separate
+
+.PHONY: help create-env poetry-install install-hooks check test package-install setup-local-dev docs
 
 help:
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
