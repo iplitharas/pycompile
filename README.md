@@ -33,15 +33,15 @@ make help
 
 ### Compile
 
-| Syntax                | Description                                                   |
-|-----------------------|---------------------------------------------------------------|
-| `--input-path PATH`   | by default it will exclude any `test` and `__init__.py` files |
-| `--clean-source`      | Deletes the sources files.                                    |
-| `--keep-builds`       | Keeps the temp build files.                                   |
-| `--clean-executables` | Deletes the shared objects (`.so`) files.                     |
-| `--engine`            | Can be `cython` or `nuitka`.                                  |
-| `-exclude-glob-paths` | Glob file patterns for excluding specific files.              |
-| `--verbose`           | Increase log messages.                                        |
+| Syntax                 | Description                                                   |
+|------------------------|---------------------------------------------------------------|
+| `--input-path PATH`    | by default it will exclude any `test` and `__init__.py` files |
+| `--clean-source`       | Deletes the sources files.                                    |
+| `--keep-builds`        | Keeps the temp build files.                                   |
+| `--clean-executables`  | Deletes the shared objects (`.so`) files.                     |
+| `--engine`             | Can be `cython` or `nuitka`.                                  |
+| `--exclude-glob-paths` | Glob file patterns for excluding specific files.              |
+| `--verbose`            | Increase log messages.                                        |
 
 ```bash
 pycompile -i your_python_files --clean-source --engine nuitka 
@@ -74,13 +74,13 @@ examples
 ### Benchmark
 
 
-| Syntax                         | Description                                                   |
-|--------------------------------|---------------------------------------------------------------|
-| `--input-path PATH`            | by default it will exclude any `test` and `__init__.py` files |
-| `--engine`                     | Can be `cython`, `nuitka`, `all` or `none`.                   |
-| `--type`                       | Can be `memory` , `cpy`, or `both`                            |
-| `--verbose`                    | Increase log messages.                                        |
-| `---profile_func_pattern TEXT` | function name pattern for profiling defaults to `benchmark`   |
+| Syntax                        | Description                                                   |
+|-------------------------------|---------------------------------------------------------------|
+| `--input-path PATH`           | by default it will exclude any `test` and `__init__.py` files |
+| `--engine`                    | Can be `cython`, `nuitka`, `all` or `none`.                   |
+| `--type`                      | Can be `memory` , `cpy`, or `both`                            |
+| `--verbose`                   | Increase log messages.                                        |
+| `--profile_func_pattern TEXT` | function name pattern for profiling defaults to `benchmark`   |
 
 For running a benchmark on  the `examples` use the following command:
 ```bash
@@ -114,11 +114,11 @@ Hence, the following structure are required for the `benchmark` subcommand.
 
 ### Dry run 
 
-| Syntax                | Description                                                   |
-|-----------------------|---------------------------------------------------------------|
-| `--input-path PATH`   | by default it will exclude any `test` and `__init__.py` files |
-| `-exclude-glob-paths` | Glob file patterns for excluding specific files.              |
-| `--verbose`           | Increase log messages.                                        |
+| Syntax                 | Description                                                   |
+|------------------------|---------------------------------------------------------------|
+| `--input-path PATH`    | by default it will exclude any `test` and `__init__.py` files |
+| `--exclude-glob-paths` | Glob file patterns for excluding specific files.              |
+| `--verbose`            | Increase log messages.                                        |
 
 ```bash
 pycompile dry_run -i ./src
