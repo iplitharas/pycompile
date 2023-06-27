@@ -159,6 +159,7 @@ Legend:
 =================================================================================================================
 29.40s call     test_examples.py::test_examples
 ```
+
 **CPU benchmark** using:`Cython`
 ```text
 Name (time in s)        Min     Max    Mean  StdDev  Median     IQR  Outliers     OPS  Rounds  Iterations
@@ -172,6 +173,7 @@ Legend:
 ===================================================================================================================
 31.80s call     test_examples.py::test_examples
 ```
+
 **CPU benchmark** using:`Nuitka`
 ```text
 ------------------------------------------- benchmark: 1 tests ------------------------------------------
