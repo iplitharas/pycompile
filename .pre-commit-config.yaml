@@ -10,9 +10,6 @@ repos:
     hooks:
       - id: black
 
-
-
-
   - repo: local
     hooks:
       - id: pylint
