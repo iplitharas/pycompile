@@ -21,7 +21,7 @@ from src.helpers import Colors
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="benchmark")
+@click.command(name="benchmark")  # type: ignore[arg-type]
 @click.option(
     "-i",
     "--input-path",
