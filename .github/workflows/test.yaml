@@ -45,13 +45,15 @@ jobs:
               coverage.xml
               htmlcov/
 
-      - name: Set Artifact URL
-        run: |
-          COVERAGE_ARTIFACT_URL="https://github.com/${{ github.repository }}/actions/artifacts/coverage-reports"
-          echo "COVERAGE_ARTIFACT_URL=$COVERAGE_ARTIFACT_URL" >> $GITHUB_ENV
-          echo "COVERAGE_ARTIFACT_URL: $COVERAGE_ARTIFACT_URL"
-  
-
+      - name: Download coverage reports
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-reports
+            
+            
+            
+            
+            
       - name: Code Quality
         run: |
             make check
