@@ -49,11 +49,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-reports
-            
-            
-            
-            
-            
+
+      - name: Extract coverage.xml
+        run: |
+          unzip $GITHUB_WORKSPACE/coverage-reports.zip -d $GITHUB_WORKSPACE
+          mv $GITHUB_WORKSPACE/coverage-reports/coverage.xml $GITHUB_WORKSPACE
+          
+
       - name: Code Quality
         run: |
             make check
