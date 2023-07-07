@@ -14,11 +14,13 @@ package-install: ## Build and install the package
 install-hooks: ## Install hooks
 	pre-commit install
 
+clean-hooks: ## Clean hooks
+	pre-commit clean
+
 setup-local-dev: poetry-install install-hooks ## Setup the local environment
 
 test: ## Run locally pytest with coverage
 	pytest . -vv -p no:warnings --cov=. --cov-report=xml --cov-report=html
-	echo "🚀🚀"
 
 check: ## Run isort black and pylint in all files
 	isort src
@@ -35,8 +37,11 @@ build-api-docs: ## Build api docs
 build-docs: ## Build docs
 	sphinx-build docs docs/_build/html
 
+clean:  ## Clean temp dirs
+	rm -rf  .pytest_cache coverage.xml .mypy_cache  .coverage .coverage.* htmlcov
 
-.PHONY: help create-env poetry-install install-hooks check test package-install setup-local-dev docs build-api-docs build-docs
+.PHONY: help create-env poetry-install install-hooks check test package-install \
+ 		setup-local-dev docs build-api-docs build-docs clean-hooks clean
 
 help:
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
