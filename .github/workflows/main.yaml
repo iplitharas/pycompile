@@ -36,10 +36,6 @@ jobs:
         run: |
             make test
 
-      - name: Code Quality
-        run: |
-            make check
-
       - name: Upload coverage reports
         uses: actions/upload-artifact@v2
         with:
@@ -49,7 +45,15 @@ jobs:
               htmlcov/
 
       - name: Set Artifact URL
-        run: echo "::set-env name=COVERAGE_ARTIFACT_URL::$(echo ${{ steps.upload.outputs.artifact_upload }} | jq -r '.artifact_upload.url')"
+        run: |
+          echo "COVERAGE_ARTIFACT_URL=${{ steps.upload.outputs.artifact_upload.url }}" >> $GITHUB_ENV
+  
+
+      - name: Code Quality
+        run: |
+            make check
+
+
 
   benchmark:
     runs-on: ubuntu-latest
