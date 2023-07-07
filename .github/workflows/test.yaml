@@ -47,7 +47,9 @@ jobs:
 
       - name: Set Artifact URL
         run: |
-          echo "COVERAGE_ARTIFACT_URL=${{ inputs.coverage-artifact-url }}" >> $GITHUB_ENV
+          COVERAGE_ARTIFACT_URL="https://github.com/${{ github.repository }}/actions/artifacts/coverage-reports"
+          echo "COVERAGE_ARTIFACT_URL=$COVERAGE_ARTIFACT_URL" >> $GITHUB_ENV
+          echo "COVERAGE_ARTIFACT_URL: $COVERAGE_ARTIFACT_URL"
   
 
       - name: Code Quality
