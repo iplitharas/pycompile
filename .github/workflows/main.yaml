@@ -47,6 +47,10 @@ jobs:
             path: |
               coverage.xml
               htmlcov/
+
+      - name: Set Artifact URL
+        run: echo "::set-env name=COVERAGE_ARTIFACT_URL::$(echo ${{ steps.upload.outputs.artifact_upload }} | jq -r '.artifact_upload.url')"
+
   benchmark:
     runs-on: ubuntu-latest
     steps:
