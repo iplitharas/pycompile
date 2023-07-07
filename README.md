@@ -19,7 +19,7 @@ A CLI tool for compiling python source code using [Cython](https://cython.org/) 
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/pycompile)
 ![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![PyPI - License](https://img.shields.io/pypi/l/pycompile)
-![![Tests](https://github.com/iplitharas/pycompile/actions/workflows/test.yml/badge.svg)](https://github.com/iplitharas/pycompile/actions/workflows/test.yml)
+[![Tests](https://github.com/iplitharas/pycompile/actions/workflows/test.yaml/badge.svg)](https://github.com/iplitharas/pycompile/actions/workflows/test.yaml)
 
 
 ### Latest docs 📝
