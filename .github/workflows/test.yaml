@@ -56,31 +56,4 @@ jobs:
 
 
 
-  benchmark:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.10.9
-
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: 1.3.1
-
-      - name: Set Poetry config
-        run: |
-          poetry config virtualenvs.create false
-
-      - name: Install dependencies
-        run: |
-          poetry install
-
-      - name: Benchmark
-        run: |
-          pycompile benchmark -i ./src/examples
 
