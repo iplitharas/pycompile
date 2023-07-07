@@ -234,3 +234,7 @@ make help
 
 
 [![Coverage](https://img.shields.io/badge/dynamic/xml?label=coverage&query=coverage.report.@line-rate&url=${{env.COVERAGE_ARTIFACT_URL}}/coverage.xml${{env.COVERAGE_ARTIFACT_URL}}/htmlcov)](https://github.com/)
+![PyPI](https://img.shields.io/pypi/v/pycompile)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pycompile)
+![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
+![PyPI - License](https://img.shields.io/pypi/l/pycompile)
