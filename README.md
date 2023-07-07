@@ -13,13 +13,13 @@
 A CLI tool for compiling python source code using [Cython](https://cython.org/)  or
 [Nuitka](https://nuitka.net/).
 
-![PyPI - Implementation](https://img.shields.io/pypi/implementation/pycompile)
-[![Coverage](https://img.shields.io/badge/dynamic/xml?label=coverage&query=coverage.report.@line-rate&url=${{env.COVERAGE_ARTIFACT_URL}}/coverage.xml${{env.COVERAGE_ARTIFACT_URL}}/htmlcov)](https://github.com/)
 ![PyPI](https://img.shields.io/pypi/v/pycompile)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/pycompile)
-![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![PyPI - License](https://img.shields.io/pypi/l/pycompile)
 [![Tests](https://github.com/iplitharas/pycompile/actions/workflows/test.yaml/badge.svg)](https://github.com/iplitharas/pycompile/actions/workflows/test.yaml)
+[![Coverage](https://img.shields.io/badge/dynamic/xml?label=coverage&query=coverage.report.@line-rate&url=${{env.COVERAGE_ARTIFACT_URL}}/coverage.xml${{env.COVERAGE_ARTIFACT_URL}}/htmlcov)](https://github.com/)
+![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
+![PyPI - Implementation](https://img.shields.io/pypi/implementation/pycompile)
 
 
 ### Latest docs 📝
