@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pycompile"
-version = "0.1.6"
+version = "0.1.7"
 description = "A CLI tool for compiling python"
 authors = ["iplitharas <johnplitharas@gmail.com>"]
 license = "MIT"
