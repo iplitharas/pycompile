@@ -232,5 +232,5 @@ make help
 
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/pycompile)
 
-[![Coverage](https://img.shields.io/badge/dynamic/xml?label=coverage&query=coverage.report.@line-rate&url=$COVERAGE_ARTIFACT_URL/coverage.xml)]($COVERAGE_ARTIFACT_URL/htmlcov)
 
+[![Coverage](https://img.shields.io/badge/dynamic/xml?label=coverage&query=coverage.report.@line-rate&url=${{env.COVERAGE_ARTIFACT_URL}}/coverage.xml${{env.COVERAGE_ARTIFACT_URL}}/htmlcov)](https://github.com/)

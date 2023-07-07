@@ -37,6 +37,7 @@ jobs:
             make test
 
       - name: Upload coverage reports
+        id: upload
         uses: actions/upload-artifact@v2
         with:
             name: coverage-reports
@@ -46,7 +47,7 @@ jobs:
 
       - name: Set Artifact URL
         run: |
-          echo "COVERAGE_ARTIFACT_URL=${{ steps.upload.outputs.artifact_upload.url }}" >> $GITHUB_ENV
+          echo "COVERAGE_ARTIFACT_URL=${{ steps.upload.outputs.artifact_url }}" >> $GITHUB_ENV
   
 
       - name: Code Quality
