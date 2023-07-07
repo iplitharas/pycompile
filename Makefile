@@ -17,7 +17,7 @@ install-hooks: ## Install hooks
 setup-local-dev: poetry-install install-hooks ## Setup the local environment
 
 test: ## Run locally pytest with coverage
-	pytest . -vv -p no:warnings --cov=.
+	pytest . -vv -p no:warnings --cov=. --cov-report=xml --cov-report=html
 	echo "🚀🚀"
 
 check: ## Run isort black and pylint in all files

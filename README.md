@@ -30,17 +30,6 @@ A CLI tool for compiling python source code using [Cython](https://cython.org/) 
 pip install pycompile
 ```
 
-
-### Local-development
-For local development run the following command
-```bash
-make setup-local-dev
-```
-All available `make` commands
-```bash
-make help
-```
-
 ### Compile
 
 | Syntax               | Description                                               |
@@ -230,5 +219,17 @@ pycompile dry_run -i ./src
 ![dry_run.gif](data/dry_run.gif)
 
 
+### Local-development
+For local development run the following command
+```bash
+make setup-local-dev
+```
+All available `make` commands
+```bash
+make help
+```
+
 
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/pycompile)
+[![Coverage](https://img.shields.io/badge/dynamic/xml?label=coverage&query=coverage.report.@line-rate&url=${{ steps.upload.outputs.artifact_url }}/coverage.xml)](${{ steps.upload.outputs.artifact_url }}/htmlcov)
+
