@@ -58,6 +58,9 @@ strict_optional = true
 strict = true
 
 [project]
+name = "pycompile"
+
+[project_urls]
 project_urls = { "GitHub" = "https://github.com/iplitharas/pycompile" }
 
 
