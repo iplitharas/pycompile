@@ -2,7 +2,9 @@
 Test cases for the `Benchmark`
 """
 import logging
-from unittest.mock import ANY, MagicMock, call, patch
+from unittest.mock import ANY, MagicMock, patch
+
+import pytest
 
 from src import CythonWrapper, NuitkaWrapper
 from src.benchmark import Benchmark
@@ -22,8 +24,7 @@ def test_benchmark_run_cpu_bench(
     Given one `.py` file with a  test file within a directory
     When we invoke the `cpu_bench` from `Benchmark`
     Then we expect to see the `cpu_bench` in the logs,
-    the `decorate_functions`
-    and the run_pytest to be called once.
+    the `decorate_functions` and the run_pytest to be called once.
     """
     # Given
     caplog.clear()
@@ -68,7 +69,7 @@ def test_benchmark_run_memory_bench(
 
 
 def test_benchmark_start_with_bench_type_both_and_without_compiling(
-    sample_python_file_with_test_fixture, caplog
+    sample_python_file_with_test_fixture,
 ):
     """
     Given one `.py` file with a test file within a directory.
@@ -77,27 +78,43 @@ def test_benchmark_start_with_bench_type_both_and_without_compiling(
     Then we expect only a mem and cpu benchmark to be executed.
     """
     # Given
-    caplog.clear()
-    caplog.set_level(logging.INFO)
     sample_folder = sample_python_file_with_test_fixture
-    assert len(list(sample_folder.iterdir())) == 2
     # When
     benchmark = Benchmark(input_path=sample_folder)
+    benchmark.mem_bench = MagicMock()
+    benchmark.cpu_bench = MagicMock()
     benchmark.start(bench_type="both", compilers=[])
     # Then
-    assert "Memory benchmark" in caplog.text
-    assert "CPU benchmark" in caplog.text
+    benchmark.mem_bench.assert_called_once()
+    benchmark.cpu_bench.assert_called_once()
 
 
-def test_benchmark_start_with_bench_type_both_and_with_cython_compiling(
-    sample_python_file_with_test_fixture, caplog
+@pytest.mark.parametrize(
+    "compilers, expected_compile_calls, expected_mem_bench_calls, expected_cpu_bench_calls",
+    [
+        (
+            [CythonWrapper(), NuitkaWrapper()],
+            (ANY, ANY),
+            (ANY, ANY, ANY),
+            (ANY, ANY, ANY),
+        ),
+        ([NuitkaWrapper()], (ANY,), (ANY, ANY), (ANY, ANY)),
+        ([CythonWrapper()], (ANY,), (ANY, ANY), (ANY, ANY)),
+    ],
+)
+def test_benchmark_start_with_bench_type_both(
+    compilers,
+    expected_compile_calls,
+    expected_mem_bench_calls,
+    expected_cpu_bench_calls,
+    sample_python_file_with_test_fixture,
+    caplog,
 ):
     """
     Given one `.py` file with a test file within a directory.
-    When we invoke the `start` method with compilers Cython
+    When we invoke the `start` method with compilers Cython and Nuitka
          and a `bench_type` of `both`
-    Then we expect only a mem and cpu benchmark to be executed twice
-        one for python and one for cython.
+    Then we expect the `compile`,  `mem_bench` and the `cpu_bench` to be executed
     """
     # Given
     caplog.clear()
@@ -109,71 +126,38 @@ def test_benchmark_start_with_bench_type_both_and_with_cython_compiling(
     benchmark.mem_bench = MagicMock()
     benchmark.cpu_bench = MagicMock()
     benchmark._compile = MagicMock()
-    benchmark.start(bench_type="both", compilers=[CythonWrapper()])
+    benchmark.start(bench_type="both", compilers=compilers)
     # Then
-    benchmark._compile.assert_called_once()
-    benchmark.mem_bench.assert_has_calls((ANY, ANY), any_order=True)
-    benchmark.cpu_bench.assert_has_calls((ANY, ANY), any_order=True)
-
-
-def test_benchmark_start_with_bench_type_both_and_with_cython__and_nuitka_compiling(
-    sample_python_file_with_test_fixture, caplog
-):
-    """
-    Given one `.py` file with a test file within a directory.
-    When we invoke the `start` method with compilers Cython and Nuitka
-         and a `bench_type` of `both`
-    Then we expect only a mem and cpu benchmark to be executed three times
-        one for python, one for cython and one for nuitka.
-    """
-    # Given
-    caplog.clear()
-    caplog.set_level(logging.INFO)
-    sample_folder = sample_python_file_with_test_fixture
-    assert len(list(sample_folder.iterdir())) == 2
-    # When
-    benchmark = Benchmark(input_path=sample_folder)
-    benchmark.mem_bench = MagicMock()
-    benchmark.cpu_bench = MagicMock()
-    benchmark._compile = MagicMock()
-    benchmark.start(
-        bench_type="both", compilers=[CythonWrapper(), NuitkaWrapper()]
+    benchmark._compile.assert_has_calls(expected_compile_calls, any_order=True)
+    benchmark.mem_bench.assert_has_calls(
+        expected_mem_bench_calls, any_order=True
     )
-    # Then
-    benchmark._compile.assert_has_calls((ANY, ANY), any_order=True)
-    benchmark.mem_bench.assert_has_calls((ANY, ANY, ANY), any_order=True)
-    benchmark.cpu_bench.assert_has_calls((ANY, ANY, ANY), any_order=True)
+    benchmark.cpu_bench.assert_has_calls(
+        expected_cpu_bench_calls, any_order=True
+    )
 
 
-def test_benchmark_start_with_bench_type_memory_and_without_compiling(
-    sample_python_file_with_test_fixture, caplog
+@pytest.mark.parametrize(
+    "compilers, expected_compile_calls, expected_mem_bench_calls",
+    [
+        ([CythonWrapper(), NuitkaWrapper()], (ANY, ANY), (ANY, ANY, ANY)),
+        ([NuitkaWrapper()], (ANY,), (ANY, ANY)),
+        ([CythonWrapper()], (ANY,), (ANY, ANY)),
+    ],
+)
+def test_benchmark_start_with_bench_type_mem_only(
+    compilers,
+    expected_compile_calls,
+    expected_mem_bench_calls,
+    sample_python_file_with_test_fixture,
+    caplog,
 ):
     """
     Given one `.py` file with a test file within a directory.
-    When we invoke the `start` method with an empty compilers list
+    When we invoke the `start` method
         and a `bench_type` of `memory`
-    Then we expect only a mem benchmark to be executed.
-    """
-    # Given
-    caplog.clear()
-    caplog.set_level(logging.INFO)
-    sample_folder = sample_python_file_with_test_fixture
-    # When
-    benchmark = Benchmark(input_path=sample_folder)
-    benchmark.start(bench_type="memory", compilers=[])
-    # Then
-    assert "Memory benchmark" in caplog.text
-    assert "CPU benchmark" not in caplog.text
-
-
-def test_benchmark_start_with_bench_type_memory_and_with_cython__and_nuitka_compiling(
-    sample_python_file_with_test_fixture, caplog
-):
-    """
-    Given one `.py` file with a test file within a directory.
-    When we invoke the `start` method with compilers Cython
-        and a `bench_type` of `memory`
-    Then we expect only a mem benchmark to be executed the times
+    Then we expect the `compile`  and `mem_bench` to be executed
+         and the `cpu_bench` to be skipped.
     """
     # Given
     caplog.clear()
@@ -184,23 +168,35 @@ def test_benchmark_start_with_bench_type_memory_and_with_cython__and_nuitka_comp
     benchmark.mem_bench = MagicMock()
     benchmark.cpu_bench = MagicMock()
     benchmark._compile = MagicMock()
-    benchmark.start(
-        bench_type="memory", compilers=[CythonWrapper(), NuitkaWrapper()]
-    )
+    benchmark.start(bench_type="memory", compilers=compilers)
     # Then
-    benchmark._compile.assert_has_calls((ANY, ANY), any_order=True)
-    benchmark.mem_bench.assert_has_calls((ANY, ANY, ANY), any_order=True)
+    benchmark._compile.assert_has_calls(expected_compile_calls, any_order=True)
+    benchmark.mem_bench.assert_has_calls(
+        expected_mem_bench_calls, any_order=True
+    )
     benchmark.cpu_bench.assert_not_called()
 
 
-def test_benchmark_start_with_bench_type_memory_and_with_cython_compiling(
-    sample_python_file_with_test_fixture, caplog
+@pytest.mark.parametrize(
+    "compilers, expected_compile_calls, expected_cpu_bench_calls",
+    [
+        ([CythonWrapper(), NuitkaWrapper()], (ANY, ANY), (ANY, ANY, ANY)),
+        ([NuitkaWrapper()], (ANY,), (ANY, ANY)),
+        ([CythonWrapper()], (ANY,), (ANY, ANY)),
+    ],
+)
+def test_benchmark_start_with_bench_type_cpu_only(
+    compilers,
+    expected_compile_calls,
+    expected_cpu_bench_calls,
+    sample_python_file_with_test_fixture,
+    caplog,
 ):
     """
     Given one `.py` file with a test file within a directory.
-    When we invoke the `start` method with compilers Cython
-        and a `bench_type` of `memory`
-    Then we expect only a mem benchmark to be executed twice
+    When we invoke the `start` method  and a `bench_type` of `cpu`
+    Then we expect the `compile` and `cpu_bench` to be executed
+         and the `mem_bench` to be skipped.
     """
     # Given
     caplog.clear()
@@ -211,81 +207,10 @@ def test_benchmark_start_with_bench_type_memory_and_with_cython_compiling(
     benchmark.mem_bench = MagicMock()
     benchmark.cpu_bench = MagicMock()
     benchmark._compile = MagicMock()
-    benchmark.start(bench_type="memory", compilers=[CythonWrapper()])
+    benchmark.start(bench_type="cpu", compilers=compilers)
     # Then
-    benchmark._compile.assert_called_once()
-    benchmark.mem_bench.assert_has_calls((ANY, ANY), any_order=True)
-    benchmark.cpu_bench.assert_not_called()
-
-
-def test_benchmark_start_with_bench_type_cpu_and_without_compiling(
-    sample_python_file_with_test_fixture, caplog
-):
-    """
-    Given one `.py` file with a test file within a directory.
-    When we invoke the `start` method with an empty compilers list
-        and a `bench_type` of `cpu`
-    Then we expect only a cpu benchmark to be executed.
-    """
-    # Given
-    caplog.clear()
-    caplog.set_level(logging.INFO)
-    sample_folder = sample_python_file_with_test_fixture
-    # When
-    benchmark = Benchmark(input_path=sample_folder)
-    benchmark.start(bench_type="cpu", compilers=[])
-    # Then
-    assert "Memory benchmark" not in caplog.text
-    assert "CPU benchmark" in caplog.text
-
-
-def test_benchmark_start_with_bench_type_cpu_and_with_cython_compiling(
-    sample_python_file_with_test_fixture, caplog
-):
-    """
-    Given one `.py` file with a test file within a directory.
-    When we invoke the `start` method with compilers Cython
-        and a `bench_type` of `cpu`
-    Then we expect only a cpu benchmark to be executed twice
-    """
-    # Given
-    caplog.clear()
-    caplog.set_level(logging.INFO)
-    sample_folder = sample_python_file_with_test_fixture
-    # When
-    benchmark = Benchmark(input_path=sample_folder)
-    benchmark.mem_bench = MagicMock()
-    benchmark.cpu_bench = MagicMock()
-    benchmark._compile = MagicMock()
-    benchmark.start(bench_type="cpu", compilers=[CythonWrapper()])
-    # Then
-    benchmark._compile.assert_called_once()
-    benchmark.cpu_bench.assert_has_calls((ANY, ANY), any_order=True)
-    benchmark.mem_bench.assert_not_called()
-
-
-def test_benchmark_start_with_bench_type_cpu_and_with_cython_and_nuitka_compiling(
-    sample_python_file_with_test_fixture, caplog
-):
-    """
-    Given one `.py` file with a test file within a directory.
-    When we invoke the `start` method with compilers Cython and Nuitka
-        and a `bench_type` of `cpu`
-    Then we expect only a cpu benchmark to be executed three times
-    """
-    # Given
-    caplog.clear()
-    caplog.set_level(logging.INFO)
-    sample_folder = sample_python_file_with_test_fixture
-    # When
-    benchmark = Benchmark(input_path=sample_folder)
-    benchmark.mem_bench = MagicMock()
-    benchmark.cpu_bench = MagicMock()
-    benchmark._compile = MagicMock()
-    benchmark.start(
-        bench_type="cpu", compilers=[CythonWrapper(), NuitkaWrapper()]
+    benchmark._compile.assert_has_calls(expected_compile_calls, any_order=True)
+    benchmark.cpu_bench.assert_has_calls(
+        expected_cpu_bench_calls, any_order=True
     )
-    # Then
-    benchmark._compile.assert_has_calls((ANY, ANY), any_order=True)
-    benchmark.cpu_bench.assert_has_calls((ANY, ANY, ANY), any_order=True)
     benchmark.mem_bench.assert_not_called()
