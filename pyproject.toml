@@ -57,6 +57,9 @@ python_version = "3.10"
 strict_optional = true
 strict = true
 
+[project]
+project_urls = { "GitHub" = "https://github.com/iplitharas/pycompile" }
+
 
 
 

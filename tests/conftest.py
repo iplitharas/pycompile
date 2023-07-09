@@ -25,6 +25,25 @@ def sample_python_file_fixture(tmp_path: Path) -> Path:
 
 
 @pytest.fixture
+def sample_python_file_with_test_fixture(tmp_path: Path) -> Path:
+    """
+    Pytest fixture to create a sample `.py` file with a corresponding
+    and return's test file and return its parent folder path.
+    """
+    # Create a sample folder within the `temp_path`
+    sample_folder = tmp_path / "sample"
+    sample_folder.mkdir()
+    # Create a sample file within the sample folder
+    python_file = sample_folder / "hello.py"
+    content = r"print('Im a python module')"
+    python_file.write_text(content)
+    test_file = sample_folder / "test_hello.py"
+    content = r"def test_hello():" r"    assert True"
+    test_file.write_text(content)
+    return sample_folder
+
+
+@pytest.fixture
 def sample_files_fixture(tmp_path: Path) -> Path:
     """
     Pytest fixture to create sample files.
