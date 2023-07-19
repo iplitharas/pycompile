@@ -17,7 +17,7 @@ from src import (
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="compile")  # type: ignore[arg-type]
+@click.command(name="compile")
 @click.option(
     "-i",
     "--input-path",

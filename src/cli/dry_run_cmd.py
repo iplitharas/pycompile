@@ -12,7 +12,7 @@ from src.helpers import Colors
 logger = logging.getLogger(__name__)
 
 
-@click.command(name="dry_run")  # type: ignore[arg-type]
+@click.command(name="dry_run")
 @click.option(
     "-i",
     "--input-path",

@@ -25,6 +25,6 @@ def main() -> None:
     pass  # pylint: disable=W0107
 
 
-main.add_command(compile_cmd)  # type: ignore[attr-defined]
-main.add_command(benchmark_cmd)  # type: ignore[attr-defined]
-main.add_command(dry_run_cmd)  # type: ignore[attr-defined]
+main.add_command(compile_cmd)
+main.add_command(benchmark_cmd)
+main.add_command(dry_run_cmd)
