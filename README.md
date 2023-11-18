@@ -94,6 +94,9 @@ For running a benchmark on the `input-path` use the following command:
 ```bash
 pycompile benchmark -i src/examples -vvv
 ```
+
+![benchmark_cython_python.gif](data/benchmark_cython_python.gif)
+
 which by default will start a `memory` and a `cpu` benchmark, starting with 
 `python` and then with `cython` and `nuitka`
 > [!IMPORTANT]
@@ -109,11 +112,6 @@ which by default will start a `memory` and a `cpu` benchmark, starting with
 > if `main` is the entrypoint under `main.py` use `--profile_func_pattern main`.
 
 Hence, the following structure are required for the `benchmark` subcommand.
-
-> [NOTE]
-> For **cpu profiling** the same approached is being used, but instead of decorating the `calling functions` 
-> it `decorates` the test cases with the `benchmark` from `pytest-benchmark`.
-
 
 ```text
  module
@@ -138,6 +136,9 @@ Line #    Mem usage    Increment  Occurrences   Line Contents
 46.03s call     test_examples.py::test_examples
 ```
 
+> [!NOTE]
+> For **cpu profiling** the same approached is being used, but instead of decorating the `calling functions` 
+> it `decorates` the test cases with the `benchmark` from `pytest-benchmark`.
 
 **CPU benchmark** using:`3.10.9 (main, Feb  2 2023, 12:59:36) [Clang 14.0.0 (clang-1400.0.29.202)]`
 ```text
@@ -154,8 +155,6 @@ Legend:
 29.40s call     test_examples.py::test_examples
 ```
 
-![benchmark_cython_python.gif](data/benchmark_cython_python.gif)
-
 ### Dry run 
 
 | Syntax               | Description                                               |
@@ -169,6 +168,7 @@ pycompile dry_run -i ./src
 ```
 
 ![dry_run.gif](data/dry_run.gif)
+
 
 
 ### Local-development
