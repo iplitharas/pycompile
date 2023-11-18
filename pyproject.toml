@@ -35,6 +35,9 @@ types-tqdm = "^4.65.0.1"             # Apache 2.0
 sphinx = "^7.0.1"                    # BSD
 furo = "^2023.5.20"                  # MIT
 myst-parser = "^2.0.0"               # MIT
+nbsphinx = "^0.9.3"
+sphinx-copybutton = "^0.5.2"
+recommonmark = "^0.7.1"
 
 [build-system]
 requires = [ "setuptools", "wheel"]
