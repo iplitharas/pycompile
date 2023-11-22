@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pycompile"
-version = "0.2.0"
+version = "0.2.1"
 description = "A CLI tool for compiling python"
 authors = ["iplitharas <johnplitharas@gmail.com>"]
 homepage = "https://github.com/iplitharas/pycompile"
