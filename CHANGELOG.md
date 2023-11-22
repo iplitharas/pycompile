@@ -1,3 +1,11 @@
+## v0.2.1 (2023-11-22)
+
+### Refactor
+
+- Move examples folder oustide the src
+
+## v0.1.13 (2023-11-22)
+
 ## v0.2.0 (2023-11-22)
 
 ### Feat
