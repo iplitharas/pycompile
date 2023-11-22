@@ -1,36 +1,47 @@
 repos:
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        name: isort (python)
-        args: ["--profile", "black", "--filter-files"]
-  - repo: https://github.com/ambv/black
-    rev: 22.12.0
-    hooks:
-      - id: black
-
-  - repo: local
-    hooks:
-      - id: pylint
-        name: pylint
-        entry: pylint
-        language: system
-        types: [python]
-        files: ^src/
-        pass_filenames: true
-        exclude: ^src/examples/
-        args:
-          - "-rn"
-          - "-sn"
-      - id: mypy
-        name: mypy
-        entry: mypy
-        language: system
-        types: [python]
-        files: ^src/
-        exclude: ^src/examples/
-        args:
-          - "--config-file"
-          - "pyproject.toml"
-          - "--ignore-missing-imports"
+- hooks:
+  - args:
+    - --profile
+    - black
+    - --filter-files
+    id: isort
+    name: isort (python)
+  repo: https://github.com/pycqa/isort
+  rev: 5.12.0
+- hooks:
+  - id: black
+  repo: https://github.com/ambv/black
+  rev: 22.12.0
+- hooks:
+  - args:
+    - -rn
+    - -sn
+    entry: pylint
+    exclude: ^src/examples/
+    files: ^src/
+    id: pylint
+    language: system
+    name: pylint
+    pass_filenames: true
+    types:
+    - python
+  - args:
+    - --config-file
+    - pyproject.toml
+    - --ignore-missing-imports
+    entry: mypy
+    exclude: ^src/examples/
+    files: ^src/
+    id: mypy
+    language: system
+    name: mypy
+    types:
+    - python
+  repo: local
+- hooks:
+  - id: commitizen
+  - id: commitizen-branch
+    stages:
+    - push
+  repo: https://github.com/commitizen-tools/commitizen
+  rev: v3.12.0
