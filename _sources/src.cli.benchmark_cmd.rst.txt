@@ -1,0 +1,7 @@
+src.cli.benchmark\_cmd module
+=============================
+
+.. automodule:: src.cli.benchmark_cmd
+   :members:
+   :undoc-members:
+   :show-inheritance:
