@@ -1,0 +1,21 @@
+src.cli package
+===============
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   src.cli.benchmark_cmd
+   src.cli.compile_cmd
+   src.cli.dry_run_cmd
+   src.cli.entrypoint
+
+Module contents
+---------------
+
+.. automodule:: src.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
