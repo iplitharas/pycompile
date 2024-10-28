@@ -39,15 +39,25 @@ pip install pycompile
 
 ### Compile
 
-| Syntax               | Description                                               |
-|----------------------|-----------------------------------------------------------|
-| --input-path PATH    | by default it excludes any `test` and `__init__.py` files |
-| --clean-source       | Deletes the sources files.                                |
-| --keep-builds        | Keeps the temp build files.                               |
-| --clean-executables  | Deletes the shared objects (`.so`) files.                 |
-| --engine             | Can be `cython` or `nuitka`.                              |
-| --exclude-glob-paths | Glob file patterns for excluding specific files.          |
-| --verbose            | Increase log messages.                                    |
+```bash
+Usage: pycompile compile [OPTIONS]
+
+  Compile the python files using `cython` or `nuitka`.
+
+Options:
+  -i, --input-path PATH           Specify the file/folder input path, by
+                                  default it will exclude any `test` and
+                                  `__init__.py` files  [required]
+  -ex, --exclude-glob-paths TEXT  glob files patterns of the files to be
+                                  excluded, example: **/ignore_this_module.py
+  -v, --verbose                   verbose level
+  -e, --engine [cython|nuitka]    CompilerWrapper to be used, defaults to:
+                                  `cython`
+  -cs, --clean-source             Clean source (.py) files
+  -kb, --keep-builds              Keep temporary build files
+  -ce, --clean-executables        Clean final executables (.so) files
+  --help                          Show this message and exit.
+```
 
 ```bash
 pycompile -i your_python_files --clean-source --engine nuitka 
@@ -62,6 +72,7 @@ compiler.
 ```bash
 pycompile -i input_path --engine cython 
 ```
+
 which by default, deletes any temp build files and keeps the source files.
 
 ![cython_compile.gif](data/cython_compile.gif) or 
