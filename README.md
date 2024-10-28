@@ -63,23 +63,16 @@ Options:
 pycompile -i your_python_files --clean-source --engine nuitka 
 ```
 
-By default, the [Cython](https://cython.org/) is being used as the default
-compiler. 
-
-> [!TIP]
-> For compiling the `examples` use the following command
 
 ```bash
-pycompile -i input_path --engine cython 
+pycompile compile  -i input_path --engine cython 
 ```
-
-which by default, deletes any temp build files and keeps the source files.
 
 ![cython_compile.gif](data/cython_compile.gif) or 
+
 ```bash
-pycompile -i input_path --engine nuitka
+pycompile compile -i input_path --engine nuitka
 ```
-![nuitka_compile.gif](data/nuitka_compile.gif)
 
 After the compilation the `input` dir  will have the following structure.
 
