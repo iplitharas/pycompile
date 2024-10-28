@@ -99,19 +99,13 @@ pycompile benchmark -i src/examples -vvv
 
 which by default will start a `memory` and a `cpu` benchmark, starting with 
 `python` and then with `cython` and `nuitka`
+
 > [!IMPORTANT]
 > The python package must have a `test_module.py` because both benchmark types are invoked 
 > with `pytest` runs
 
-> [!NOTE]
-> For **memory profiling** the script will decorate all the functions in `benchmark.py` 
-> with the `profile` decorator from `memory-profiler`. This is not optimal memory profiling, 
-> because we don't actually `profile` the function itself, instead we profile the `caller` but it's necessary
-> if we want to `profile` also the compiled code.
-> Use the `profile_func_pattern` to specify the function to be profiled in different module for example 
-> if `main` is the entrypoint under `main.py` use `--profile_func_pattern main`.
 
-Hence, the following structure are required for the `benchmark` subcommand.
+The following structure is required for the `benchmark` subcommand.
 
 ```text
  module
@@ -120,40 +114,14 @@ Hence, the following structure are required for the `benchmark` subcommand.
     ├── test_sample_funcs.py                   # test cases
 ```
 
-**Memory benchmark** using:`3.10.9 (main, Feb  2 2023, 12:59:36) [Clang 14.0.0 (clang-1400.0.29.202)`
-```text
-Line #    Mem usage    Increment  Occurrences   Line Contents
-=============================================================
-     7     49.4 MiB     49.4 MiB           1   @profile
-     8                                         def samples_benchmark():
-     9    127.7 MiB     78.4 MiB           1       sum_of_squares()
-    10    166.0 MiB     38.3 MiB           1       harmonic_mean()
-    11    166.0 MiB      0.0 MiB           1       fibonacci(30)
-    12    204.2 MiB     38.2 MiB           1       sum_numbers()
-    13     57.7 MiB   -146.5 MiB           1       sum_strings()
-```
-```text
-46.03s call     test_examples.py::test_examples
-```
+
 
 > [!NOTE]
 > For **cpu profiling** the same approached is being used, but instead of decorating the `calling functions` 
 > it `decorates` the test cases with the `benchmark` from `pytest-benchmark`.
 
 **CPU benchmark** using:`3.10.9 (main, Feb  2 2023, 12:59:36) [Clang 14.0.0 (clang-1400.0.29.202)]`
-```text
-------------------------------------------- benchmark: 1 tests ------------------------------------------
-Name (time in s)        Min     Max    Mean  StdDev  Median     IQR  Outliers     OPS  Rounds  Iterations
----------------------------------------------------------------------------------------------------------
-test_examples        3.9257  4.0640  3.9731  0.0605  3.9387  0.0917       1;0  0.2517       5           1
----------------------------------------------------------------------------------------------------------
 
-Legend:
-  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
-  OPS: Operations Per Second, computed as 1 / Mean
-=================================================================================================================
-29.40s call     test_examples.py::test_examples
-```
 
 ### Dry run 
 
