@@ -67,7 +67,7 @@ logger = logging.getLogger(__name__)
     default=False,
     help="Clean final executables (.so) files",
 )
-def compile_cmd(  # pylint: disable=R0913
+def compile_cmd(  # pylint: disable=R0913 R0917
     input_path: Path,
     exclude_glob_paths: list[str],
     verbose: int,
