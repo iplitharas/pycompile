@@ -32,6 +32,10 @@ jobs:
         run: |
             poetry install
 
+      - name: Code Quality
+        run: |
+            make check
+
       - name: Run test cases
         run: |
             make test
@@ -45,9 +49,7 @@ jobs:
               coverage.xml
               htmlcov/
 
-      - name: Code Quality
-        run: |
-            make check
+
 
 
 
