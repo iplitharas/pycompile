@@ -28,7 +28,7 @@ A CLI tool for compiling python source code using [Cython](https://cython.org/) 
 1. [Installation 🔨](#installation)
 2. [Compile](#compile)
 3. [Benchmark](#benchmark)
-4. [Dry run](#dry run)
+4. [Dry run](#dry-run)
 5. [Local-development 💻🏭](#local-development)
 
 
@@ -130,7 +130,7 @@ The following structure is required for the `benchmark` subcommand.
 ```
 
 
-### dry run 
+### Dry run
 
 ```bash
 pycompile dry_run -i ./src
