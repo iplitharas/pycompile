@@ -60,21 +60,12 @@ Options:
 ```
 
 ```bash
-pycompile -i your_python_files --clean-source --engine nuitka 
-```
-
-
-```bash
-pycompile compile  -i input_path --engine cython 
+pycompile compile -i your_python_files --clean-source --engine nuitka 
 ```
 
 ![cython_compile.gif](data/cython_compile.gif) or 
 
-```bash
-pycompile compile -i input_path --engine nuitka
-```
-
-After the compilation the `input` dir  will have the following structure.
+After the compilation the `input` dir will have the following structure.
 
 ```text
 examples
@@ -84,6 +75,32 @@ examples
 ```
 
 ### Benchmark
+
+```bash
+Usage: pycompile benchmark [OPTIONS]
+
+  Run a memory and cpu benchmark.
+
+Options:
+  -i, --input-path PATH           Specify the file/folder input path
+                                  [required]
+  -e, --engine [cython|nuitka|both|none]
+                                  compiler wrapper(s) to be used for the
+                                  benchmark, defaults to `both`.
+  -t, --type [memory|cpu|both]    type of benchmark to execute, defaults to
+                                  `both`.
+  -p, --profile_func_pattern TEXT
+                                  function name pattern for profiling,
+                                  defaults to `benchmark`. All the functions
+                                  with a name that matches this pattern will
+                                  be decorated with `@profile` from: `memory-
+                                  profiler`, in addition their module needs to
+                                  follow  the pattern
+                                  (`something_prof_func_name.py` to be
+                                  excluded from compilation).
+  -v, --verbose                   verbose level
+  --help                          Show this message and exit.
+```
 
 It starts a `memory` and a `cpu` benchmark, starting with 
 * `python`,
@@ -120,7 +137,6 @@ pycompile dry_run -i ./src
 ```
 
 ![dry_run.gif](data/dry_run.gif)
-
 
 
 ### Local-development
