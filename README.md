@@ -81,24 +81,18 @@ examples
 
 ### Benchmark
 
+It starts a `memory` and a `cpu` benchmark, starting with 
+* `python`,
+* `cython` and,
+* `nuitka`
 
-| Syntax                      | Description                                                 |
-|-----------------------------|-------------------------------------------------------------|
-| --input-path PATH           | by default it excludes any `test` and `__init__.py` files   |
-| --engine                    | Can be `cython`, `nuitka`, `all` or `none`.                 |
-| --type                      | Can be `memory` , `cpy`, or `both`                          |
-| --verbose                   | Increase log messages.                                      |
-| --profile_func_pattern TEXT | function name pattern for profiling defaults to `benchmark` |
 
-For running a benchmark on the `input-path` use the following command:
 ```bash
 pycompile benchmark -i src/examples -vvv
 ```
 
 ![benchmark_cython_python.gif](data/benchmark_cython_python.gif)
 
-which by default will start a `memory` and a `cpu` benchmark, starting with 
-`python` and then with `cython` and `nuitka`
 
 > [!IMPORTANT]
 > The python package must have a `test_module.py` because both benchmark types are invoked 
@@ -115,21 +109,7 @@ The following structure is required for the `benchmark` subcommand.
 ```
 
 
-
-> [!NOTE]
-> For **cpu profiling** the same approached is being used, but instead of decorating the `calling functions` 
-> it `decorates` the test cases with the `benchmark` from `pytest-benchmark`.
-
-**CPU benchmark** using:`3.10.9 (main, Feb  2 2023, 12:59:36) [Clang 14.0.0 (clang-1400.0.29.202)]`
-
-
-### Dry run 
-
-| Syntax               | Description                                               |
-|----------------------|-----------------------------------------------------------|
-| --input-path PATH    | by default it excludes any `test` and `__init__.py` files |
-| --exclude-glob-paths | Glob file patterns for excluding specific files.          |
-| --verbose            | Increase log messages.                                    |
+### Dry-run 
 
 ```bash
 pycompile dry_run -i ./src
@@ -141,9 +121,11 @@ pycompile dry_run -i ./src
 
 ### Local-development
 For local development run the following command
+
 ```bash
 make setup-local-dev
 ```
+
 All available `make` commands
 ```bash
 make help
