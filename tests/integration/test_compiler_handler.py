@@ -67,12 +67,12 @@ def test_compiler_handler_compiles_using_cython_with_keep_builds_and_without_cle
     )
     compiler_handler.start()
     # Then
-    assert len(list(sample_folder.iterdir())) == 4
+    assert len(list(sample_folder.iterdir())) == 3
     assert " Flag `--clean-source` is on" not in caplog.text
     source_file = sample_folder / "hello.py"
     assert source_file.is_file()
     build_folder = sample_folder / "build"
-    assert build_folder.is_dir()
+    assert not build_folder.is_dir()
     c_file = sample_folder / "hello.c"
     assert c_file.is_file()
 
@@ -137,12 +137,12 @@ def test_compiler_handler_compiles_using_cython_with_keep_builds_and_clean_sourc
     )
     compiler_handler.start()
     # Then
-    assert len(list(sample_folder.iterdir())) == 3
+    assert len(list(sample_folder.iterdir())) == 2
     assert " Flag `--clean-source` is on" in caplog.text
     source_file = sample_folder / "hello.py"
     assert not source_file.is_file()
     build_folder = sample_folder / "build"
-    assert build_folder.is_dir()
+    assert not build_folder.is_dir()
     c_file = sample_folder / "hello.c"
     assert c_file.is_file()
 
