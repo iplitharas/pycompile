@@ -10,7 +10,7 @@
    
 """
 ```
-A CLI tool for compiling python source code using [Cython](https://cython.org/)  or
+A CLI tool for compiling and benchmarking python source code using [Cython](https://cython.org/)  or
 [Nuitka](https://nuitka.net/).
 
 ![PyPI](https://img.shields.io/pypi/v/pycompile)
