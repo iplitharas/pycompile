@@ -1,0 +1,7 @@
+src.cli.entrypoint module
+=========================
+
+.. automodule:: src.cli.entrypoint
+   :members:
+   :undoc-members:
+   :show-inheritance:

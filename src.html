@@ -1,0 +1,569 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
+        <title>src package - pycompile documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">pycompile  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">pycompile  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="src-package">
+<h1>src package<a class="headerlink" href="#src-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src.benchmark.html">src.benchmark module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.benchmark.html#src.benchmark.Benchmark"><code class="docutils literal notranslate"><span class="pre">Benchmark</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.benchmark.html#src.benchmark.Benchmark.cpu_bench"><code class="docutils literal notranslate"><span class="pre">Benchmark.cpu_bench()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.benchmark.html#src.benchmark.Benchmark.mem_bench"><code class="docutils literal notranslate"><span class="pre">Benchmark.mem_bench()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.benchmark.html#src.benchmark.Benchmark.start"><code class="docutils literal notranslate"><span class="pre">Benchmark.start()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.compiler_handler.html">src.compiler_handler module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.compiler_handler.html#src.compiler_handler.CompilerHandler"><code class="docutils literal notranslate"><span class="pre">CompilerHandler</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.compiler_handler.html#src.compiler_handler.CompilerHandler.clean_executables"><code class="docutils literal notranslate"><span class="pre">CompilerHandler.clean_executables()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.compiler_handler.html#src.compiler_handler.CompilerHandler.start"><code class="docutils literal notranslate"><span class="pre">CompilerHandler.start()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.file_handler.html">src.file_handler module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.file_handler.html#src.file_handler.FileHandler"><code class="docutils literal notranslate"><span class="pre">FileHandler</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.file_handler.html#src.file_handler.FileHandler.collect_with_pattern"><code class="docutils literal notranslate"><span class="pre">FileHandler.collect_with_pattern()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.file_handler.html#src.file_handler.FileHandler.exclude_patterns"><code class="docutils literal notranslate"><span class="pre">FileHandler.exclude_patterns</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.file_handler.html#src.file_handler.FileHandler.input_path"><code class="docutils literal notranslate"><span class="pre">FileHandler.input_path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.file_handler.html#src.file_handler.FileHandler.start"><code class="docutils literal notranslate"><span class="pre">FileHandler.start()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.helpers.html">src.helpers module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.helpers.html#src.helpers.Colors"><code class="docutils literal notranslate"><span class="pre">Colors</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.helpers.html#src.helpers.Colors.BLUE"><code class="docutils literal notranslate"><span class="pre">Colors.BLUE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.helpers.html#src.helpers.Colors.BOLD"><code class="docutils literal notranslate"><span class="pre">Colors.BOLD</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.helpers.html#src.helpers.Colors.CYAN"><code class="docutils literal notranslate"><span class="pre">Colors.CYAN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.helpers.html#src.helpers.Colors.FAIL"><code class="docutils literal notranslate"><span class="pre">Colors.FAIL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.helpers.html#src.helpers.Colors.GREEN"><code class="docutils literal notranslate"><span class="pre">Colors.GREEN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.helpers.html#src.helpers.Colors.HEADER"><code class="docutils literal notranslate"><span class="pre">Colors.HEADER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.helpers.html#src.helpers.Colors.RESET"><code class="docutils literal notranslate"><span class="pre">Colors.RESET</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.helpers.html#src.helpers.Colors.UNDERLINE"><code class="docutils literal notranslate"><span class="pre">Colors.UNDERLINE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.helpers.html#src.helpers.Colors.WARNING"><code class="docutils literal notranslate"><span class="pre">Colors.WARNING</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.helpers.html#src.helpers.change_dir"><code class="docutils literal notranslate"><span class="pre">change_dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.helpers.html#src.helpers.copy_files"><code class="docutils literal notranslate"><span class="pre">copy_files()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.helpers.html#src.helpers.decorate_functions"><code class="docutils literal notranslate"><span class="pre">decorate_functions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.helpers.html#src.helpers.run_pytest"><code class="docutils literal notranslate"><span class="pre">run_pytest()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.helpers.html#src.helpers.run_sub_process"><code class="docutils literal notranslate"><span class="pre">run_sub_process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.logging_setup.html">src.logging_setup module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.logging_setup.html#src.logging_setup.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.wrappers.html">src.wrappers module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerCommands"><code class="docutils literal notranslate"><span class="pre">CompilerCommands</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerCommands.cython"><code class="docutils literal notranslate"><span class="pre">CompilerCommands.cython</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerCommands.cython_bench"><code class="docutils literal notranslate"><span class="pre">CompilerCommands.cython_bench</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerCommands.nuitka"><code class="docutils literal notranslate"><span class="pre">CompilerCommands.nuitka</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerCommands.nuitka_bench"><code class="docutils literal notranslate"><span class="pre">CompilerCommands.nuitka_bench</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerWrapper"><code class="docutils literal notranslate"><span class="pre">CompilerWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerWrapper.cleanup"><code class="docutils literal notranslate"><span class="pre">CompilerWrapper.cleanup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerWrapper.cmd"><code class="docutils literal notranslate"><span class="pre">CompilerWrapper.cmd</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.wrappers.html#src.wrappers.CythonWrapper"><code class="docutils literal notranslate"><span class="pre">CythonWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.wrappers.html#src.wrappers.CythonWrapper.cleanup"><code class="docutils literal notranslate"><span class="pre">CythonWrapper.cleanup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.wrappers.html#src.wrappers.CythonWrapper.cmd"><code class="docutils literal notranslate"><span class="pre">CythonWrapper.cmd</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.wrappers.html#src.wrappers.NuitkaWrapper"><code class="docutils literal notranslate"><span class="pre">NuitkaWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.wrappers.html#src.wrappers.NuitkaWrapper.cleanup"><code class="docutils literal notranslate"><span class="pre">NuitkaWrapper.cleanup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.wrappers.html#src.wrappers.NuitkaWrapper.cmd"><code class="docutils literal notranslate"><span class="pre">NuitkaWrapper.cmd</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-src">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src" title="Link to this heading">¶</a></h2>
+<p>pycompile imports</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.CompilerCommands">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">CompilerCommands</span></span><a class="headerlink" href="#src.CompilerCommands" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.CompilerCommands.cython">
+<span class="sig-name descname"><span class="pre">cython</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cythonize</span> <span class="pre">{}</span> <span class="pre">-3</span> <span class="pre">--inplace'</span></em><a class="headerlink" href="#src.CompilerCommands.cython" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.CompilerCommands.cython_bench">
+<span class="sig-name descname"><span class="pre">cython_bench</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cythonize</span> <span class="pre">{}</span> <span class="pre">-3</span> <span class="pre">--inplace</span> <span class="pre">--quiet</span> <span class="pre">2&gt;/dev/null'</span></em><a class="headerlink" href="#src.CompilerCommands.cython_bench" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.CompilerCommands.nuitka">
+<span class="sig-name descname"><span class="pre">nuitka</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'python</span> <span class="pre">-m</span> <span class="pre">nuitka</span> <span class="pre">--module</span> <span class="pre">{}'</span></em><a class="headerlink" href="#src.CompilerCommands.nuitka" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.CompilerCommands.nuitka_bench">
+<span class="sig-name descname"><span class="pre">nuitka_bench</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'python</span> <span class="pre">-m</span> <span class="pre">nuitka</span> <span class="pre">--quiet</span> <span class="pre">--module</span> <span class="pre">{}</span> <span class="pre">2&gt;/dev/null'</span></em><a class="headerlink" href="#src.CompilerCommands.nuitka_bench" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.CompilerHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">CompilerHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerWrapper" title="src.wrappers.CompilerWrapper"><span class="pre">CompilerWrapper</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_builds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CompilerHandler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>CompilerHandler is responsible for compiling all the <code class="docutils literal notranslate"><span class="pre">.py</span></code> files using
+<code class="docutils literal notranslate"><span class="pre">Cython</span></code> or <code class="docutils literal notranslate"><span class="pre">Nuitka</span></code>
+example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">compiler_handler</span> <span class="o">=</span> <span class="n">CompilerHandler</span><span class="p">(</span><span class="n">files</span><span class="o">=</span><span class="n">dir_files</span><span class="p">,</span><span class="n">compiler</span><span class="o">=</span><span class="n">compiler</span><span class="p">,</span>
+                    <span class="n">clean_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">keep_builds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">compiler_handler</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.CompilerHandler.clean_executables">
+<span class="sig-name descname"><span class="pre">clean_executables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.CompilerHandler.clean_executables" title="Link to this definition">¶</a></dt>
+<dd><p>Cleans all the <cite>.so</cite> files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.CompilerHandler.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.CompilerHandler.start" title="Link to this definition">¶</a></dt>
+<dd><p>For each <code class="docutils literal notranslate"><span class="pre">.py</span></code> file runs the compiler command
+to build the final executable <code class="docutils literal notranslate"><span class="pre">.so</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.CompilerWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">CompilerWrapper</span></span><a class="headerlink" href="#src.CompilerWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.CompilerWrapper.cleanup">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.CompilerWrapper.cleanup" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="src.CompilerWrapper.cmd">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cmd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#src.CompilerWrapper.cmd" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.CythonWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">CythonWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cythonize</span> <span class="pre">{}</span> <span class="pre">-3</span> <span class="pre">--inplace'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.CythonWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerWrapper" title="src.wrappers.CompilerWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompilerWrapper</span></code></a></p>
+<p>Cython is a programming language, a superset of the Python programming language,
+designed to give C-like performance with code that is written mostly in Python with optional
+additional C-inspired syntax.
+Cython is a compiled language that is typically used to generate CPython extension modules
+<a class="reference external" href="https://cython.org/">https://cython.org/</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.CythonWrapper.cleanup">
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.CythonWrapper.cleanup" title="Link to this definition">¶</a></dt>
+<dd><p>Deletes the <a href="#id1"><span class="problematic" id="id2">`</span></a>build`directory.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="src.CythonWrapper.cmd">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cmd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#src.CythonWrapper.cmd" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.FileHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">FileHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_exclude_patterns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.FileHandler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>FileHandler is responsible for finding all the <code class="docutils literal notranslate"><span class="pre">.py</span></code> files within
+the  <code class="docutils literal notranslate"><span class="pre">input_path</span></code>.
+example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dir_files</span> <span class="o">=</span> <span class="n">FileHandler</span><span class="p">(</span><span class="s2">&quot;./my_module&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>By default, all the <code class="docutils literal notranslate"><span class="pre">test</span></code> files and any <code class="docutils literal notranslate"><span class="pre">__init__</span></code> files are excluded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_path</strong> – Should be a valid file/directory path.</p></li>
+<li><p><strong>additional_exclude_patterns</strong> – Any optional additional glob patterns.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.FileHandler.collect_with_pattern">
+<span class="sig-name descname"><span class="pre">collect_with_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.FileHandler.collect_with_pattern" title="Link to this definition">¶</a></dt>
+<dd><p>Collects all python files within the <code class="docutils literal notranslate"><span class="pre">input_path</span></code> where they mach
+the <code class="docutils literal notranslate"><span class="pre">pattern</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pattern</strong> – str containing glob patters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Generator of file paths.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="src.FileHandler.exclude_patterns">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exclude_patterns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#src.FileHandler.exclude_patterns" title="Link to this definition">¶</a></dt>
+<dd><p>Current glob exclude patterns</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="src.FileHandler.input_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#src.FileHandler.input_path" title="Link to this definition">¶</a></dt>
+<dd><p>Current <cite>input path</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.FileHandler.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.FileHandler.start" title="Link to this definition">¶</a></dt>
+<dd><p>For the given <code class="docutils literal notranslate"><span class="pre">input</span> <span class="pre">path</span></code> collect all valid <code class="docutils literal notranslate"><span class="pre">.py</span></code> files based on
+the <code class="docutils literal notranslate"><span class="pre">exclude_patterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a dictionary for valid files within each directory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.NuitkaWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">NuitkaWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'python</span> <span class="pre">-m</span> <span class="pre">nuitka</span> <span class="pre">--module</span> <span class="pre">{}'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.NuitkaWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.wrappers.html#src.wrappers.CompilerWrapper" title="src.wrappers.CompilerWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompilerWrapper</span></code></a></p>
+<p>Nuitka is a source-to-source compiler which compiles Python code to C source code,
+applying some compile-time optimizations in the process such as constant
+folding and propagation,
+built-in call prediction, type inference, and conditional statement execution.
+<a class="reference external" href="https://nuitka.net/">https://nuitka.net/</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.NuitkaWrapper.cleanup">
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.NuitkaWrapper.cleanup" title="Link to this definition">¶</a></dt>
+<dd><p>Deletes the <cite>build`directory alongside with the `file.pyi</cite> temp file.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="src.NuitkaWrapper.cmd">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cmd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#src.NuitkaWrapper.cmd" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.change_dir">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">change_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.change_dir" title="Link to this definition">¶</a></dt>
+<dd><p>Context manager to change the current active directory at the <cite>file path</cite> parents.
+This is needed to be able to include the compiled files in the
+same directory as the source files.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.run_sub_process">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">run_sub_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compile_cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.run_sub_process" title="Link to this definition">¶</a></dt>
+<dd><p>For each file path run in a subprocess the corresponding compiler command.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.setup_logging">
+<span class="sig-prename descclassname"><span class="pre">src.</span></span><span class="sig-name descname"><span class="pre">setup_logging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.setup_logging" title="Link to this definition">¶</a></dt>
+<dd><p>setup logging helper function</p>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Ioannis Plitharas
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">src package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src">Module contents</a><ul>
+<li><a class="reference internal" href="#src.CompilerCommands"><code class="docutils literal notranslate"><span class="pre">CompilerCommands</span></code></a><ul>
+<li><a class="reference internal" href="#src.CompilerCommands.cython"><code class="docutils literal notranslate"><span class="pre">CompilerCommands.cython</span></code></a></li>
+<li><a class="reference internal" href="#src.CompilerCommands.cython_bench"><code class="docutils literal notranslate"><span class="pre">CompilerCommands.cython_bench</span></code></a></li>
+<li><a class="reference internal" href="#src.CompilerCommands.nuitka"><code class="docutils literal notranslate"><span class="pre">CompilerCommands.nuitka</span></code></a></li>
+<li><a class="reference internal" href="#src.CompilerCommands.nuitka_bench"><code class="docutils literal notranslate"><span class="pre">CompilerCommands.nuitka_bench</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.CompilerHandler"><code class="docutils literal notranslate"><span class="pre">CompilerHandler</span></code></a><ul>
+<li><a class="reference internal" href="#src.CompilerHandler.clean_executables"><code class="docutils literal notranslate"><span class="pre">CompilerHandler.clean_executables()</span></code></a></li>
+<li><a class="reference internal" href="#src.CompilerHandler.start"><code class="docutils literal notranslate"><span class="pre">CompilerHandler.start()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.CompilerWrapper"><code class="docutils literal notranslate"><span class="pre">CompilerWrapper</span></code></a><ul>
+<li><a class="reference internal" href="#src.CompilerWrapper.cleanup"><code class="docutils literal notranslate"><span class="pre">CompilerWrapper.cleanup()</span></code></a></li>
+<li><a class="reference internal" href="#src.CompilerWrapper.cmd"><code class="docutils literal notranslate"><span class="pre">CompilerWrapper.cmd</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.CythonWrapper"><code class="docutils literal notranslate"><span class="pre">CythonWrapper</span></code></a><ul>
+<li><a class="reference internal" href="#src.CythonWrapper.cleanup"><code class="docutils literal notranslate"><span class="pre">CythonWrapper.cleanup()</span></code></a></li>
+<li><a class="reference internal" href="#src.CythonWrapper.cmd"><code class="docutils literal notranslate"><span class="pre">CythonWrapper.cmd</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.FileHandler"><code class="docutils literal notranslate"><span class="pre">FileHandler</span></code></a><ul>
+<li><a class="reference internal" href="#src.FileHandler.collect_with_pattern"><code class="docutils literal notranslate"><span class="pre">FileHandler.collect_with_pattern()</span></code></a></li>
+<li><a class="reference internal" href="#src.FileHandler.exclude_patterns"><code class="docutils literal notranslate"><span class="pre">FileHandler.exclude_patterns</span></code></a></li>
+<li><a class="reference internal" href="#src.FileHandler.input_path"><code class="docutils literal notranslate"><span class="pre">FileHandler.input_path</span></code></a></li>
+<li><a class="reference internal" href="#src.FileHandler.start"><code class="docutils literal notranslate"><span class="pre">FileHandler.start()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.NuitkaWrapper"><code class="docutils literal notranslate"><span class="pre">NuitkaWrapper</span></code></a><ul>
+<li><a class="reference internal" href="#src.NuitkaWrapper.cleanup"><code class="docutils literal notranslate"><span class="pre">NuitkaWrapper.cleanup()</span></code></a></li>
+<li><a class="reference internal" href="#src.NuitkaWrapper.cmd"><code class="docutils literal notranslate"><span class="pre">NuitkaWrapper.cmd</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.change_dir"><code class="docutils literal notranslate"><span class="pre">change_dir()</span></code></a></li>
+<li><a class="reference internal" href="#src.run_sub_process"><code class="docutils literal notranslate"><span class="pre">run_sub_process()</span></code></a></li>
+<li><a class="reference internal" href="#src.setup_logging"><code class="docutils literal notranslate"><span class="pre">setup_logging()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    </body>
+</html>
