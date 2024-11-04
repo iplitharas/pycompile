@@ -18,7 +18,7 @@ cython = "^3.0.0"                     # Apache
 nuitka = ">=1.7.5,<3.0.0"             # Apache 2.0
 click = "^8.1.3"                      # BSD-3-Clause
 tqdm = "^4.64.1"                      # MIT
-pytest-benchmark = "^4.0.0"           # BSD-2-Clause
+pytest-benchmark = ">=4,<6"           # BSD-2-Clause
 memory-profiler = "^0.61.0"           # BSD
 
 
