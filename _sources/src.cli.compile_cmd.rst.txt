@@ -1,0 +1,7 @@
+src.cli.compile\_cmd module
+===========================
+
+.. automodule:: src.cli.compile_cmd
+   :members:
+   :undoc-members:
+   :show-inheritance:
